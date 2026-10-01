@@ -1,5 +1,5 @@
 window.TODAYCOOK_CONFIG = Object.freeze({
-  APP_NAME: '오늘 무엇을 요리하지?',
+  APP_NAME: '오늘 뭐먹지? · 간식편',
   API_URL: '',
   TTS_API_URL: '',
   API_TIMEOUT_MS: 5000,
