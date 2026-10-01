@@ -53,6 +53,8 @@ function synthesizeSpeech_(body) {
   const cached = cache.get(cacheKey);
   if (cached) return { audioContent: cached, mimeType: 'audio/mpeg', voice: voice, rate: rate, cached: true };
 
+  enforceTtsDailyLimit_(text, props);
+
   const requestBody = {
     input: { text: text },
     voice: { languageCode: TODAYCOOK_TTS_DEFAULTS.LANGUAGE, name: voice, ssmlGender: 'FEMALE' },
@@ -78,6 +80,24 @@ function synthesizeSpeech_(body) {
 
   if (payload.audioContent.length < 90000) cache.put(cacheKey, payload.audioContent, 21600);
   return { audioContent: payload.audioContent, mimeType: 'audio/mpeg', voice: voice, rate: rate, cached: false };
+}
+
+
+function enforceTtsDailyLimit_(text, props) {
+  const limit = Number(props.getProperty('TODAYCOOK_TTS_DAILY_CHAR_LIMIT') || 100000);
+  if (!Number.isFinite(limit) || limit <= 0) return;
+  const day = Utilities.formatDate(new Date(), 'Asia/Seoul', 'yyyyMMdd');
+  const key = 'TODAYCOOK_TTS_USAGE_' + day;
+  const lock = LockService.getScriptLock();
+  if (!lock.tryLock(5000)) throw new Error('TTS is busy. Please retry.');
+  try {
+    const used = Number(props.getProperty(key) || 0);
+    const next = used + text.length;
+    if (next > limit) throw new Error('Daily TTS limit reached.');
+    props.setProperty(key, String(next));
+  } finally {
+    lock.releaseLock();
+  }
 }
 
 function parsePostBody_(e) {
