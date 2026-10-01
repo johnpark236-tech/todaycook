@@ -1,38 +1,49 @@
-# 오늘 무엇을 요리하지? · TodayCook
+# 오늘 뭐먹지? · 간식편
 
-퇴근 후 “오늘 뭐 해먹지?”를 10초 안에 해결하도록 만든 모바일 우선 집밥 앱입니다. 26개 초보자 레시피, 검색과 필터, 단계별 조리 모드, 한국어 음성 읽기, 장보기 저장, 냉장고 재료 추천을 제공합니다.
+기존 `todaycook` 집밥편의 모바일 UX와 단계별 레시피 구조를 재사용해 만든 **간식 전용 에디션**입니다.
 
-## Features
+## 콘셉트
 
-- 오늘의 추천과 무작위 다시 추천
-- 요리명·재료 검색, 카테고리·시간·난이도 필터
-- 재료 체크와 초보자용 단계별 설명
-- Google Cloud Text-to-Speech 기반 `ko-KR` 전체/현재 단계 읽기, 일시정지·다시 듣기
-- `localStorage` 장보기 추가, 체크, 삭제, 새로고침 유지
-- 보유 재료와 필수 재료 비교 추천
-- Apps Script API 우선, 5초 내 실패 시 로컬 JSON fallback
-- Mobile-first, safe-area, 44px 이상 터치 영역, PWA manifest
+- 스마트폰 9:16 모바일 우선
+- 큰 글씨 / 큰 터치 영역
+- 오늘의 추천 간식 1개를 가장 크게 노출
+- 5~20분 안에 만들 수 있는 초보자 간식 중심
+- 단계별 조리 카드
+- 장보기
+- 집에 있는 재료로 간식 추천
+- Google Cloud TTS 구조 재사용
+- 직접 제작한 SVG 간식 일러스트 포함
 
-## Architecture
+## 현재 간식 12종
 
-GitHub Pages → Google Apps Script Web App → Google Sheet (`Recipes`, `Ingredients`, `Settings`) + Google Cloud Text-to-Speech. 음성 합성은 서버측 Apps Script가 처리하고 브라우저는 MP3만 재생합니다. 장보기 상태는 브라우저 로컬 저장소를 사용합니다. 자세한 설명은 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)를 참고하세요.
+길거리 계란토스트, 프렌치토스트, 떡꼬치, 컵 떡볶이, 콘치즈, 고구마 맛탕, 버터 감자구이, 바나나 팬케이크, 과일 요거트볼, 라면땅, 컵 계란빵, 초코 머그케이크.
 
-## Run locally
+## 이미지
 
-정적 파일 서버를 사용하세요. 예: `python -m http.server 8080` 후 `http://localhost:8080/#/home`을 엽니다. `file://`에서는 JSON fetch가 제한될 수 있습니다.
+모든 대표 이미지는 `assets/snacks/*.svg`에 저장되어 있으며 외부 이미지 URL에 의존하지 않습니다.
 
-## Google Sheet and Apps Script
+## 현재 Git 상태
 
-[Google Sheet setup](docs/GOOGLE_SHEET_SETUP.md)과 [Apps Script guide](apps-script/README.md)를 따릅니다. 연결 전에도 앱은 fallback 데이터로 완전히 동작합니다.
+이 브랜치는 새 독립 저장소로 옮길 수 있도록 준비한 간식편 스테이징 버전입니다.
 
-## GitHub Pages
+- Base repository: `johnpark236-tech/todaycook`
+- Branch: `project/todayeat-snack`
+- Intended new project name: `오늘 뭐먹지? · 간식편`
 
-`main`에 push하면 GitHub Pages가 branch root에서 배포합니다. 운영 주소는 `https://johnpark236-tech.github.io/todaycook/`입니다.
+기존 `main` 집밥편은 수정하지 않습니다.
 
-## ChatGPT maintenance
+## 실행
 
-향후 자연어 유지보수는 [docs/CHATGPT_MAINTENANCE.md](docs/CHATGPT_MAINTENANCE.md)의 파일 맵과 검증 절차를 따릅니다.
+정적 서버에서 실행:
 
-## Security
+```bash
+python -m http.server 8080
+```
 
-저장소와 프런트엔드에 OAuth token, service-account JSON, API key, GitHub token, password, credential, `.env` secret을 두지 않습니다. Google Cloud TTS 인증은 Apps Script의 서버측 OAuth 토큰으로 처리하며, 공개 TTS 호출에는 길이 제한·일일 문자 제한·캐시를 적용합니다.
+브라우저:
+
+```text
+http://localhost:8080/#/home
+```
+
+Google Apps Script URL이 비어 있으면 로컬 JSON 레시피로 동작합니다.
