@@ -95,7 +95,7 @@
     });
     $('#replay-speech').addEventListener('click', () => window.TodayCookSpeech.replay());
     $('#speak-recipe').addEventListener('click', () => window.TodayCookSpeech.speak(window.TodayCookSpeech.recipeText(recipe)));
-    syncSpeechControls({ state: window.TodayCookSpeech.state, hasReplay: true });
+    syncSpeechControls({ state: window.TodayCookSpeech.state, hasReplay: false });
   }
 
   function shoppingView() {
