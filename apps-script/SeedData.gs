@@ -1,7 +1,7 @@
 const RECIPES_HEADER = ['id','name','description','category','difficulty','timeMinutes','servings','imageUrl','tagsJson','ingredientsJson','stepsJson','tipsJson','enabled','sortOrder','updatedAt'];
 const INGREDIENTS_HEADER = ['id','name','category','aliases','enabled','sortOrder'];
 const SETTINGS_HEADER = ['key','value','description'];
-const FALLBACK_DATA_URL = 'https://johnpark236-tech.github.io/todaycook/data/recipes-fallback.json';
+const FALLBACK_DATA_URL = 'https://raw.githubusercontent.com/johnpark236-tech/todaycook/project/todayeat-snack/data/recipes-fallback.json';
 
 /**
  * Creates or updates TodayCook_Data. Safe to run repeatedly: recipe and ingredient rows are upserted by ID.
@@ -17,7 +17,7 @@ function initializeTodayCook() {
   const settingsSheet = ensureSheet_(spreadsheet, TODAYCOOK_SHEET_NAMES.SETTINGS, SETTINGS_HEADER);
 
   const recipes = fetchSeedRecipes_();
-  const baseUrl = 'https://johnpark236-tech.github.io/todaycook/';
+  const baseUrl = 'https://raw.githubusercontent.com/johnpark236-tech/todaycook/project/todayeat-snack/';
   const now = new Date().toISOString();
   const recipeRows = recipes.map(function (recipe, index) {
     return [recipe.id, recipe.name, recipe.description, recipe.category, recipe.difficulty, recipe.timeMinutes,
@@ -34,9 +34,9 @@ function initializeTodayCook() {
   upsertRows_(ingredientsSheet, INGREDIENTS_HEADER, ingredientRows, 0);
 
   const settingRows = [
-    ['APP_NAME','오늘 무엇을 요리하지?','앱 이름'],
-    ['TAGLINE','오늘도 맛있는 집밥 한 끼','홈 태그라인'],
-    ['HOME_TITLE','오늘은 어떤 집밥이 좋을까요?','홈 제목'],
+    ['APP_NAME','오늘 뭐먹지? · 간식편','앱 이름'],
+    ['TAGLINE','오늘은 어떤 간식이 당길까요?','홈 태그라인'],
+    ['HOME_TITLE','오늘 뭐먹지? 간식편','홈 제목'],
     ['FEATURE_SPEECH','true','음성 기능'],
     ['FEATURE_FRIDGE','true','재료 추천'],
     ['FEATURE_SHOPPING','true','장보기 목록']
@@ -75,9 +75,9 @@ function upsertRows_(sheet, header, incomingRows, idColumn) {
 }
 
 function ingredientCategory_(name) {
-  if (/돼지|소고기|닭고기|참치|멸치|바지락/.test(name)) return '단백질';
-  if (/간장|소금|고추장|된장|고춧가루|마늘|참기름|올리고당|마요네즈|새우젓/.test(name)) return '양념';
-  if (/밥|소면|라면/.test(name)) return '곡물/면';
+  if (/계란|우유|치즈|요거트/.test(name)) return '단백질/유제품';
+  if (/소금|설탕|고추장|고춧가루|올리고당|마요네즈|케첩|버터|코코아|라면수프/.test(name)) return '양념/토핑';
+  if (/식빵|밀가루|라면|떡/.test(name)) return '곡물/빵/떡';
   return '채소/기타';
 }
 
