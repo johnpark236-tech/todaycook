@@ -1,30 +1,859 @@
 {
   "recipes": [
-    {"id":"kimchi-jjigae","name":"김치찌개","description":"잘 익은 김치와 돼지고기로 끓이는 든든한 집밥 찌개예요.","category":"찌개","difficulty":"쉬움","timeMinutes":30,"servings":2,"image":"assets/recipes/kimchi-jjigae.webp","tags":["김치","돼지고기","인기"],"ingredients":[{"id":"kimchi","name":"김치","amount":"300g","optional":false},{"id":"pork","name":"돼지고기","amount":"200g","optional":false},{"id":"tofu","name":"두부","amount":"1/2모","optional":false},{"id":"green-onion","name":"대파","amount":"1/2대","optional":false},{"id":"onion","name":"양파","amount":"1/2개","optional":true},{"id":"chili-powder","name":"고춧가루","amount":"1큰술","optional":false}],"steps":[{"order":1,"text":"돼지고기는 한입 크기로, 김치는 3cm 길이로 썰어주세요.","tip":"고기를 썬 도마와 칼은 바로 씻어주세요."},{"order":2,"text":"냄비에 식용유 1큰술을 두르고 돼지고기를 중불에서 3분 볶아주세요.","tip":"고기 겉면이 하얗게 익을 때까지 볶아요."},{"order":3,"text":"김치를 넣고 2분 더 볶은 뒤 물 500ml를 부어주세요.","tip":"김치 국물 3큰술을 넣으면 더 깊은 맛이 나요."},{"order":4,"text":"고춧가루를 넣고 중불에서 15분 끓여주세요.","tip":"끓어오르면 불을 조금 줄여주세요."},{"order":5,"text":"두부와 대파를 넣고 5분 더 끓여 마무리하세요.","tip":"돼지고기 속까지 완전히 익었는지 확인하세요."}],"tips":["신김치를 사용하면 감칠맛이 좋아요."]},
-    {"id":"doenjang-jjigae","name":"된장찌개","description":"된장과 채소의 구수한 맛이 편안한 기본 찌개예요.","category":"찌개","difficulty":"쉬움","timeMinutes":25,"servings":2,"image":"assets/recipes/doenjang-jjigae.webp","tags":["된장","두부","채소"],"ingredients":[{"id":"soybean-paste","name":"된장","amount":"2큰술","optional":false},{"id":"tofu","name":"두부","amount":"1/2모","optional":false},{"id":"zucchini","name":"애호박","amount":"1/3개","optional":false},{"id":"potato","name":"감자","amount":"1개","optional":false},{"id":"onion","name":"양파","amount":"1/2개","optional":false},{"id":"green-onion","name":"대파","amount":"1/2대","optional":true}],"steps":[{"order":1,"text":"감자와 애호박, 양파, 두부를 2cm 크기로 썰어주세요.","tip":"감자는 애호박보다 조금 작게 썰면 익는 시간이 비슷해요."},{"order":2,"text":"냄비에 물 600ml와 된장 2큰술을 풀어 끓여주세요.","tip":"된장은 체에 풀면 국물이 매끈해요."},{"order":3,"text":"감자와 양파를 넣고 중불에서 8분 끓여주세요.","tip":"감자가 반쯤 익을 때까지 끓여요."},{"order":4,"text":"애호박과 두부를 넣고 7분 더 끓여주세요.","tip":"거품은 숟가락으로 가볍게 걷어내세요."},{"order":5,"text":"대파를 넣고 1분 끓인 뒤 불을 꺼주세요.","tip":"간이 부족하면 된장을 반 큰술만 더 넣어요."}],"tips":["쌀뜨물을 사용하면 더 구수해요."]},
-    {"id":"sundubu-jjigae","name":"순두부찌개","description":"부드러운 순두부와 얼큰한 국물이 어우러진 찌개예요.","category":"찌개","difficulty":"보통","timeMinutes":25,"servings":2,"image":"assets/recipes/sundubu-jjigae.webp","tags":["순두부","얼큰","계란"],"ingredients":[{"id":"soft-tofu","name":"순두부","amount":"1봉","optional":false},{"id":"egg","name":"계란","amount":"1개","optional":false},{"id":"onion","name":"양파","amount":"1/3개","optional":false},{"id":"green-onion","name":"대파","amount":"1/2대","optional":false},{"id":"chili-powder","name":"고춧가루","amount":"1큰술","optional":false},{"id":"clam","name":"바지락","amount":"150g","optional":true}],"steps":[{"order":1,"text":"양파와 대파를 얇게 썰어주세요.","tip":"바지락을 쓴다면 흐르는 물에 껍데기를 문질러 씻어요."},{"order":2,"text":"냄비에 식용유 1큰술과 대파, 고춧가루를 넣고 약불에서 1분 볶아주세요.","tip":"고춧가루가 타지 않게 약불을 유지해요."},{"order":3,"text":"양파와 물 450ml를 넣고 7분 끓여주세요.","tip":"바지락은 이때 함께 넣어요."},{"order":4,"text":"순두부를 숟가락으로 크게 떠 넣고 6분 끓여주세요.","tip":"너무 자주 저으면 순두부가 부서져요."},{"order":5,"text":"계란을 깨 넣고 2분 더 끓여 마무리하세요.","tip":"계란 흰자가 익을 때까지 끓여주세요."}],"tips":["참기름을 몇 방울 넣으면 고소해요."]},
-    {"id":"budae-jjigae","name":"부대찌개","description":"햄과 김치, 라면이 푸짐하게 어우러진 한 냄비 요리예요.","category":"찌개","difficulty":"쉬움","timeMinutes":30,"servings":3,"image":"assets/recipes/budae-jjigae.webp","tags":["햄","김치","라면"],"ingredients":[{"id":"ham","name":"햄","amount":"200g","optional":false},{"id":"kimchi","name":"김치","amount":"200g","optional":false},{"id":"tofu","name":"두부","amount":"1/2모","optional":false},{"id":"ramen","name":"라면사리","amount":"1개","optional":false},{"id":"green-onion","name":"대파","amount":"1대","optional":false},{"id":"onion","name":"양파","amount":"1/2개","optional":false}],"steps":[{"order":1,"text":"햄과 두부는 1cm 두께로, 양파와 대파는 얇게 썰어주세요.","tip":"햄은 뜨거운 물에 한번 헹구면 짠맛이 줄어요."},{"order":2,"text":"넓은 냄비에 김치, 햄, 두부, 양파를 보기 좋게 담아주세요.","tip":"가운데는 라면을 넣을 자리로 비워두세요."},{"order":3,"text":"물 700ml와 고춧가루 1큰술, 간장 1큰술을 넣고 12분 끓여주세요.","tip":"센불에서 끓인 뒤 중불로 줄여요."},{"order":4,"text":"라면사리와 대파를 넣고 4분 더 끓여주세요.","tip":"면이 바닥에 붙지 않게 한 번 풀어주세요."}],"tips":["치즈 한 장을 올리면 매운맛이 부드러워져요."]},
-    {"id":"miyeok-guk","name":"미역국","description":"소고기와 미역을 푹 끓인 담백하고 따뜻한 국이에요.","category":"국","difficulty":"쉬움","timeMinutes":35,"servings":3,"image":"assets/recipes/miyeok-guk.webp","tags":["미역","소고기","국"],"ingredients":[{"id":"seaweed","name":"마른 미역","amount":"15g","optional":false},{"id":"beef","name":"소고기","amount":"150g","optional":false},{"id":"garlic","name":"다진 마늘","amount":"1작은술","optional":false},{"id":"soup-soy","name":"국간장","amount":"2큰술","optional":false}],"steps":[{"order":1,"text":"마른 미역은 찬물에 10분 불린 뒤 물기를 짜고 먹기 좋게 잘라주세요.","tip":"불린 미역은 부피가 크게 늘어요."},{"order":2,"text":"냄비에 참기름 1큰술과 소고기를 넣고 중불에서 3분 볶아주세요.","tip":"고기 겉면이 익을 때까지 볶아요."},{"order":3,"text":"미역을 넣고 2분 더 볶아주세요.","tip":"국간장 1큰술을 함께 넣으면 간이 배어요."},{"order":4,"text":"물 1리터를 붓고 중약불에서 25분 끓여주세요.","tip":"오래 끓일수록 미역이 부드러워져요."},{"order":5,"text":"마늘과 남은 국간장으로 간하고 2분 더 끓이세요.","tip":"소고기는 속까지 완전히 익혀주세요."}],"tips":["처음부터 물을 넉넉히 넣고 푹 끓여요."]},
-    {"id":"kongnamul-guk","name":"콩나물국","description":"시원하고 깔끔해 아침에도 부담 없는 빠른 국이에요.","category":"국","difficulty":"쉬움","timeMinutes":15,"servings":2,"image":"assets/recipes/kongnamul-guk.webp","tags":["콩나물","15분","국"],"ingredients":[{"id":"bean-sprout","name":"콩나물","amount":"200g","optional":false},{"id":"green-onion","name":"대파","amount":"1/2대","optional":false},{"id":"garlic","name":"다진 마늘","amount":"1작은술","optional":false},{"id":"soup-soy","name":"국간장","amount":"1큰술","optional":false}],"steps":[{"order":1,"text":"콩나물은 찬물에 두 번 씻고 대파는 송송 썰어주세요.","tip":"상한 콩나물은 골라내세요."},{"order":2,"text":"냄비에 물 700ml와 콩나물을 넣고 뚜껑을 연 채 끓여주세요.","tip":"끓는 동안 뚜껑을 계속 열어두면 비린 향이 덜해요."},{"order":3,"text":"끓기 시작하면 중불에서 6분 더 끓여주세요.","tip":"콩나물 줄기가 투명해지면 익은 거예요."},{"order":4,"text":"마늘, 국간장, 대파를 넣고 2분 끓여 마무리하세요.","tip":"부족한 간은 소금으로 맞춰요."}],"tips":["청양고추를 넣으면 칼칼해요."]},
-    {"id":"gyeran-guk","name":"계란국","description":"보드라운 계란이 몽글몽글한 10분 완성 국이에요.","category":"국","difficulty":"쉬움","timeMinutes":10,"servings":2,"image":"assets/recipes/gyeran-guk.webp","tags":["계란","10분","초간단"],"ingredients":[{"id":"egg","name":"계란","amount":"2개","optional":false},{"id":"green-onion","name":"대파","amount":"1/3대","optional":false},{"id":"garlic","name":"다진 마늘","amount":"1/2작은술","optional":true},{"id":"soup-soy","name":"국간장","amount":"1큰술","optional":false}],"steps":[{"order":1,"text":"계란 2개를 그릇에 깨 넣고 젓가락으로 풀어주세요.","tip":"흰자와 노른자가 고르게 섞이면 돼요."},{"order":2,"text":"냄비에 물 600ml와 국간장, 마늘을 넣고 끓여주세요.","tip":"멸치 육수를 쓰면 더 감칠맛이 나요."},{"order":3,"text":"물이 끓으면 계란물을 가늘게 돌려 부어주세요.","tip":"붓고 10초 동안 젓지 않아야 덩어리가 예뻐요."},{"order":4,"text":"대파를 넣고 1분 끓인 뒤 불을 꺼주세요.","tip":"계란이 완전히 익었는지 확인하세요."}],"tips":["후추를 조금 뿌려도 좋아요."]},
-    {"id":"jeyuk-bokkeum","name":"제육볶음","description":"매콤달콤한 양념에 돼지고기와 양파를 볶은 인기 반찬이에요.","category":"볶음","difficulty":"보통","timeMinutes":25,"servings":2,"image":"assets/recipes/jeyuk-bokkeum.webp","tags":["돼지고기","매콤","인기"],"ingredients":[{"id":"pork","name":"돼지고기","amount":"300g","optional":false},{"id":"onion","name":"양파","amount":"1/2개","optional":false},{"id":"green-onion","name":"대파","amount":"1/2대","optional":false},{"id":"gochujang","name":"고추장","amount":"2큰술","optional":false},{"id":"chili-powder","name":"고춧가루","amount":"1큰술","optional":false},{"id":"garlic","name":"다진 마늘","amount":"1큰술","optional":false}],"steps":[{"order":1,"text":"양파는 1cm 두께로 썰고 대파는 어슷하게 썰어주세요.","tip":"돼지고기는 한입 크기인지 확인해요."},{"order":2,"text":"고추장 2큰술, 고춧가루 1큰술, 간장 1큰술, 설탕 1큰술, 마늘을 섞어주세요.","tip":"양념을 먼저 섞으면 고르게 배어요."},{"order":3,"text":"돼지고기에 양념을 넣고 골고루 버무려주세요.","tip":"가능하면 10분 재워두세요."},{"order":4,"text":"팬을 중강불로 달군 뒤 고기를 6분 볶아주세요.","tip":"생고기를 만진 도구는 바로 씻어요."},{"order":5,"text":"양파와 대파를 넣고 4분 더 볶아주세요.","tip":"돼지고기 중심까지 붉은 기 없이 완전히 익혀요."}],"tips":["상추에 싸 먹으면 잘 어울려요."]},
-    {"id":"pork-bulgogi","name":"돼지불고기","description":"맵지 않은 간장 양념으로 온 가족이 즐기는 돼지고기 볶음이에요.","category":"고기","difficulty":"쉬움","timeMinutes":25,"servings":2,"image":"assets/recipes/pork-bulgogi.webp","tags":["돼지고기","간장","고기"],"ingredients":[{"id":"pork","name":"돼지고기","amount":"300g","optional":false},{"id":"onion","name":"양파","amount":"1/2개","optional":false},{"id":"green-onion","name":"대파","amount":"1/2대","optional":false},{"id":"soy-sauce","name":"간장","amount":"3큰술","optional":false},{"id":"garlic","name":"다진 마늘","amount":"1큰술","optional":false}],"steps":[{"order":1,"text":"양파는 얇게, 대파는 어슷하게 썰어주세요.","tip":"고기는 키친타월로 핏물을 가볍게 닦아요."},{"order":2,"text":"간장 3큰술, 설탕 1큰술, 마늘, 참기름 1큰술을 섞어주세요.","tip":"단맛은 설탕 양으로 조절해요."},{"order":3,"text":"고기와 양파를 양념에 10분 재워주세요.","tip":"실온에 오래 두지 마세요."},{"order":4,"text":"달군 팬에서 고기를 중강불로 8분 볶아주세요.","tip":"고기가 뭉치지 않게 풀어가며 볶아요."},{"order":5,"text":"대파를 넣고 2분 더 볶아 완전히 익혀주세요.","tip":"속이 분홍색이면 더 익혀요."}],"tips":["배즙 한 큰술을 넣으면 부드러워요."]},
-    {"id":"beef-bulgogi","name":"소불고기","description":"달큰한 간장 양념이 촉촉하게 밴 부드러운 소불고기예요.","category":"고기","difficulty":"보통","timeMinutes":30,"servings":2,"image":"assets/recipes/bulgogi.webp","tags":["소고기","간장","인기"],"ingredients":[{"id":"beef","name":"소고기","amount":"300g","optional":false},{"id":"onion","name":"양파","amount":"1/2개","optional":false},{"id":"mushroom","name":"버섯","amount":"100g","optional":true},{"id":"green-onion","name":"대파","amount":"1/2대","optional":false},{"id":"soy-sauce","name":"간장","amount":"3큰술","optional":false}],"steps":[{"order":1,"text":"양파는 얇게 썰고 버섯은 먹기 좋게 찢어주세요.","tip":"소고기는 키친타월로 핏물을 닦아요."},{"order":2,"text":"간장 3큰술, 설탕 1큰술, 참기름 1큰술, 다진 마늘 1큰술을 섞어주세요.","tip":"후추를 두 번 톡톡 뿌려도 좋아요."},{"order":3,"text":"소고기와 양파를 양념에 넣고 15분 재워주세요.","tip":"고기를 한 장씩 풀어 양념하세요."},{"order":4,"text":"달군 팬에 재운 고기를 넣고 중강불에서 5분 볶아주세요.","tip":"국물이 너무 많으면 불을 조금 높여요."},{"order":5,"text":"버섯과 대파를 넣고 3분 더 볶아 마무리하세요.","tip":"고기는 원하는 익힘 정도까지 충분히 익혀요."}],"tips":["당면을 불려 넣으면 푸짐해요."]},
-    {"id":"dak-bokkeumtang","name":"닭볶음탕","description":"포슬한 감자와 매콤한 닭고기를 푹 끓인 든든한 요리예요.","category":"고기","difficulty":"보통","timeMinutes":45,"servings":3,"image":"assets/recipes/dak-bokkeumtang.webp","tags":["닭고기","감자","매콤"],"ingredients":[{"id":"chicken","name":"닭고기","amount":"800g","optional":false},{"id":"potato","name":"감자","amount":"2개","optional":false},{"id":"onion","name":"양파","amount":"1개","optional":false},{"id":"carrot","name":"당근","amount":"1/2개","optional":true},{"id":"green-onion","name":"대파","amount":"1대","optional":false},{"id":"gochujang","name":"고추장","amount":"2큰술","optional":false}],"steps":[{"order":1,"text":"닭고기는 흐르는 물에 씻지 말고 키친타월로 물기만 닦아주세요.","tip":"생닭 물이 주변에 튀지 않게 주의해요."},{"order":2,"text":"감자와 당근은 3cm 크기로, 양파는 굵게 썰어주세요.","tip":"감자 모서리를 둥글리면 덜 부서져요."},{"order":3,"text":"고추장 2큰술, 고춧가루 2큰술, 간장 3큰술, 설탕 1큰술, 마늘 1큰술을 섞어주세요.","tip":"양념을 미리 풀어두세요."},{"order":4,"text":"냄비에 닭과 물 700ml, 양념을 넣고 중불에서 15분 끓여주세요.","tip":"끓는 동안 생닭을 다룬 도구를 씻어요."},{"order":5,"text":"감자, 당근, 양파를 넣고 20분 더 끓여주세요.","tip":"닭고기 중심까지 완전히 익혀요."},{"order":6,"text":"대파를 넣고 2분 끓인 뒤 불을 꺼주세요.","tip":"닭뼈 주변에 붉은 기가 없어야 해요."}],"tips":["감자가 익었는지 젓가락으로 찔러 확인해요."]},
-    {"id":"soy-braised-chicken","name":"간장닭조림","description":"짭조름하고 달큰한 간장 양념으로 졸인 순한 닭요리예요.","category":"고기","difficulty":"보통","timeMinutes":40,"servings":3,"image":"assets/recipes/soy-braised-chicken.webp","tags":["닭고기","간장","감자"],"ingredients":[{"id":"chicken","name":"닭고기","amount":"800g","optional":false},{"id":"potato","name":"감자","amount":"2개","optional":false},{"id":"onion","name":"양파","amount":"1개","optional":false},{"id":"soy-sauce","name":"간장","amount":"5큰술","optional":false},{"id":"garlic","name":"다진 마늘","amount":"1큰술","optional":false}],"steps":[{"order":1,"text":"닭은 키친타월로 물기를 닦고 감자와 양파는 큼직하게 썰어주세요.","tip":"생닭은 씻지 않아야 물이 튀는 것을 줄일 수 있어요."},{"order":2,"text":"간장 5큰술, 설탕 2큰술, 마늘, 물 500ml를 섞어주세요.","tip":"설탕이 녹도록 저어요."},{"order":3,"text":"냄비에 닭과 양념물을 넣고 중불에서 15분 끓여주세요.","tip":"위에 뜨는 거품은 걷어내요."},{"order":4,"text":"감자와 양파를 넣고 18분 더 졸여주세요.","tip":"중간에 두 번 뒤집어 간이 고르게 배게 해요."},{"order":5,"text":"국물이 자작해지고 닭 속까지 익으면 불을 꺼주세요.","tip":"닭고기 중심에 붉은 기가 없어야 해요."}],"tips":["청양고추를 넣으면 단맛이 깔끔해요."]},
-    {"id":"kimchi-bokkeumbap","name":"김치볶음밥","description":"김치와 밥만 있어도 빠르게 만드는 실패 없는 한 그릇이에요.","category":"밥","difficulty":"쉬움","timeMinutes":15,"servings":1,"image":"assets/recipes/kimchi-bokkeumbap.webp","tags":["김치","밥","15분"],"ingredients":[{"id":"rice","name":"밥","amount":"1공기","optional":false},{"id":"kimchi","name":"김치","amount":"150g","optional":false},{"id":"egg","name":"계란","amount":"1개","optional":true},{"id":"green-onion","name":"대파","amount":"1/3대","optional":false}],"steps":[{"order":1,"text":"김치는 가위로 1cm 크기로 자르고 대파는 송송 썰어주세요.","tip":"그릇 안에서 가위로 자르면 도마가 물들지 않아요."},{"order":2,"text":"팬에 식용유 1큰술과 대파를 넣고 중불에서 1분 볶아주세요.","tip":"대파 향이 올라오면 다음 단계로 가요."},{"order":3,"text":"김치를 넣고 3분 볶아주세요.","tip":"설탕 반 작은술을 넣으면 신맛이 줄어요."},{"order":4,"text":"밥을 넣고 주걱으로 풀어가며 4분 볶아주세요.","tip":"찬밥은 전자레인지에 30초 데우면 잘 풀려요."},{"order":5,"text":"간장 1작은술과 참기름을 넣고 섞어 마무리하세요.","tip":"계란프라이를 완전히 익혀 올려도 좋아요."}],"tips":["김가루를 뿌리면 더 고소해요."]},
-    {"id":"egg-fried-rice","name":"계란볶음밥","description":"고슬고슬한 밥과 부드러운 계란으로 만드는 초간단 한 끼예요.","category":"밥","difficulty":"쉬움","timeMinutes":12,"servings":1,"image":"assets/recipes/egg-fried-rice.webp","tags":["계란","밥","초간단"],"ingredients":[{"id":"rice","name":"밥","amount":"1공기","optional":false},{"id":"egg","name":"계란","amount":"2개","optional":false},{"id":"green-onion","name":"대파","amount":"1/3대","optional":false},{"id":"soy-sauce","name":"간장","amount":"1작은술","optional":false}],"steps":[{"order":1,"text":"계란을 그릇에 풀고 대파는 송송 썰어주세요.","tip":"밥은 미리 덩어리를 풀어둬요."},{"order":2,"text":"팬에 식용유를 두르고 대파를 중불에서 1분 볶아주세요.","tip":"대파가 타지 않게 저어요."},{"order":3,"text":"계란물을 넣고 주걱으로 크게 저어 70퍼센트만 익혀주세요.","tip":"촉촉할 때 밥을 넣어요."},{"order":4,"text":"밥을 넣고 센불에서 3분 빠르게 볶아주세요.","tip":"주걱으로 밥을 눌러 풀어요."},{"order":5,"text":"팬 가장자리에 간장을 넣고 1분 더 볶아 마무리하세요.","tip":"계란이 완전히 익었는지 확인하세요."}],"tips":["소금은 마지막에 맛을 보고 넣어요."]},
-    {"id":"bibimbap","name":"비빔밥","description":"다양한 채소와 고추장을 쓱쓱 비벼 먹는 건강한 한 그릇이에요.","category":"밥","difficulty":"보통","timeMinutes":30,"servings":2,"image":"assets/recipes/bibimbap.webp","tags":["채소","밥","한그릇"],"ingredients":[{"id":"rice","name":"밥","amount":"2공기","optional":false},{"id":"bean-sprout","name":"콩나물","amount":"100g","optional":false},{"id":"zucchini","name":"애호박","amount":"1/2개","optional":false},{"id":"mushroom","name":"버섯","amount":"100g","optional":false},{"id":"egg","name":"계란","amount":"2개","optional":false},{"id":"gochujang","name":"고추장","amount":"2큰술","optional":false}],"steps":[{"order":1,"text":"애호박은 채 썰고 버섯은 얇게 썰어주세요.","tip":"채소 크기를 비슷하게 맞추면 먹기 편해요."},{"order":2,"text":"콩나물은 끓는 물에 4분 데친 뒤 물기를 빼주세요.","tip":"찬물에 헹구면 아삭해요."},{"order":3,"text":"팬에 식용유를 조금 두르고 애호박과 버섯을 각각 3분씩 볶아주세요.","tip":"소금 한 꼬집으로 간해요."},{"order":4,"text":"계란프라이를 노른자까지 원하는 정도로 익혀주세요.","tip":"완숙을 원하면 뚜껑을 덮어 1분 더 익혀요."},{"order":5,"text":"밥 위에 채소와 계란을 올리고 고추장과 참기름을 곁들이세요.","tip":"먹기 직전에 골고루 비벼요."}],"tips":["냉장고의 남은 나물을 활용해도 좋아요."]},
-    {"id":"janchi-guksu","name":"잔치국수","description":"따뜻한 멸치 국물과 부드러운 소면이 정겨운 한 그릇이에요.","category":"면","difficulty":"보통","timeMinutes":25,"servings":2,"image":"assets/recipes/janchi-guksu.webp","tags":["국수","따뜻한","면"],"ingredients":[{"id":"noodle","name":"소면","amount":"200g","optional":false},{"id":"zucchini","name":"애호박","amount":"1/3개","optional":false},{"id":"egg","name":"계란","amount":"1개","optional":true},{"id":"green-onion","name":"대파","amount":"1/3대","optional":false},{"id":"anchovy","name":"국물멸치","amount":"10마리","optional":false}],"steps":[{"order":1,"text":"냄비에 물 1리터와 국물멸치를 넣고 10분 끓인 뒤 멸치를 건져주세요.","tip":"멸치 내장을 빼면 쓴맛이 덜해요."},{"order":2,"text":"애호박은 채 썰고 대파는 송송 썰어 육수에 넣어주세요.","tip":"국간장 1큰술로 간해요."},{"order":3,"text":"다른 냄비에 물을 넉넉히 끓여 소면을 4분 삶아주세요.","tip":"끓어오르면 찬물을 반 컵 부어요."},{"order":4,"text":"삶은 소면은 찬물에 두 번 비벼 씻고 물기를 빼주세요.","tip":"전분기를 씻어야 면이 탱글해요."},{"order":5,"text":"그릇에 면을 담고 뜨거운 육수를 부어주세요.","tip":"계란 지단이나 김가루를 올려요."}],"tips":["양념간장을 곁들이면 간을 맞추기 쉬워요."]},
-    {"id":"bibim-guksu","name":"비빔국수","description":"새콤달콤 매콤한 양념에 비벼 먹는 시원한 국수예요.","category":"면","difficulty":"쉬움","timeMinutes":15,"servings":2,"image":"assets/recipes/bibim-guksu.webp","tags":["국수","매콤","15분"],"ingredients":[{"id":"noodle","name":"소면","amount":"200g","optional":false},{"id":"cucumber","name":"오이","amount":"1/2개","optional":true},{"id":"kimchi","name":"김치","amount":"100g","optional":true},{"id":"gochujang","name":"고추장","amount":"2큰술","optional":false}],"steps":[{"order":1,"text":"고추장 2큰술, 식초 2큰술, 설탕 1큰술, 간장 1큰술을 섞어주세요.","tip":"설탕이 녹도록 잘 저어요."},{"order":2,"text":"오이는 가늘게 채 썰고 김치는 작게 잘라주세요.","tip":"고명은 없어도 괜찮아요."},{"order":3,"text":"끓는 물에 소면을 넣고 4분 삶아주세요.","tip":"면이 넘치려 하면 찬물을 조금 부어요."},{"order":4,"text":"소면을 찬물에 두 번 비벼 씻고 물기를 꽉 빼주세요.","tip":"물기가 많으면 양념이 묽어져요."},{"order":5,"text":"면과 양념을 비빈 뒤 오이와 김치를 올려주세요.","tip":"참기름과 깨를 마지막에 넣어요."}],"tips":["삶은 계란을 올리면 든든해요."]},
-    {"id":"gyeran-mari","name":"계란말이","description":"폭신하고 부드러워 도시락 반찬으로도 좋은 계란말이예요.","category":"반찬","difficulty":"보통","timeMinutes":15,"servings":2,"image":"assets/recipes/gyeran-mari.webp","tags":["계란","반찬","15분"],"ingredients":[{"id":"egg","name":"계란","amount":"4개","optional":false},{"id":"green-onion","name":"대파","amount":"1/4대","optional":true},{"id":"carrot","name":"당근","amount":"2큰술","optional":true},{"id":"salt","name":"소금","amount":"2꼬집","optional":false}],"steps":[{"order":1,"text":"계란 4개를 풀고 소금 2꼬집을 넣어 섞어주세요.","tip":"젓가락으로 흰자 끈을 끊어주세요."},{"order":2,"text":"대파와 당근을 아주 잘게 다져 계란물에 섞어주세요.","tip":"채소가 크면 말 때 찢어질 수 있어요."},{"order":3,"text":"약불로 달군 팬에 기름을 얇게 바르고 계란물 1/3을 부어주세요.","tip":"팬 전체에 얇게 펼쳐요."},{"order":4,"text":"윗면이 살짝 촉촉할 때 한쪽부터 천천히 말아주세요.","tip":"뒤집개 두 개를 쓰면 편해요."},{"order":5,"text":"계란물을 조금씩 추가하며 같은 방법으로 두 번 더 말아주세요.","tip":"속까지 익도록 약불에서 앞뒤로 1분씩 익혀요."}],"tips":["완성 후 2분 식힌 다음 썰면 모양이 잘 잡혀요."]},
-    {"id":"dubu-jorim","name":"두부조림","description":"노릇한 두부에 짭조름한 양념이 밴 밥도둑 반찬이에요.","category":"반찬","difficulty":"쉬움","timeMinutes":20,"servings":2,"image":"assets/recipes/dubu-jorim.webp","tags":["두부","반찬","채소"],"ingredients":[{"id":"tofu","name":"두부","amount":"1모","optional":false},{"id":"onion","name":"양파","amount":"1/2개","optional":false},{"id":"green-onion","name":"대파","amount":"1/3대","optional":false},{"id":"soy-sauce","name":"간장","amount":"3큰술","optional":false},{"id":"chili-powder","name":"고춧가루","amount":"1큰술","optional":false}],"steps":[{"order":1,"text":"두부는 1.5cm 두께로 썰고 키친타월로 물기를 닦아주세요.","tip":"물기를 닦아야 기름이 덜 튀어요."},{"order":2,"text":"간장 3큰술, 고춧가루 1큰술, 물 100ml, 설탕 반 큰술을 섞어주세요.","tip":"대파도 송송 썰어 넣어요."},{"order":3,"text":"팬에 식용유를 두르고 두부를 중불에서 앞뒤로 3분씩 구워주세요.","tip":"두부 가장자리가 노릇해지면 뒤집어요."},{"order":4,"text":"양파와 양념장을 넣고 약불에서 6분 졸여주세요.","tip":"중간에 양념을 두부 위로 끼얹어요."}],"tips":["따뜻할 때 밥과 함께 먹어요."]},
-    {"id":"gamja-jorim","name":"감자조림","description":"포슬한 감자에 달콤짭짤한 간장 맛이 밴 기본 반찬이에요.","category":"반찬","difficulty":"쉬움","timeMinutes":25,"servings":3,"image":"assets/recipes/gamja-jorim.webp","tags":["감자","간장","반찬"],"ingredients":[{"id":"potato","name":"감자","amount":"3개","optional":false},{"id":"onion","name":"양파","amount":"1/2개","optional":true},{"id":"soy-sauce","name":"간장","amount":"4큰술","optional":false},{"id":"syrup","name":"올리고당","amount":"1큰술","optional":false}],"steps":[{"order":1,"text":"감자는 껍질을 벗기고 2cm 크기로 썰어 찬물에 5분 담가주세요.","tip":"전분을 빼면 덜 달라붙어요."},{"order":2,"text":"냄비에 감자, 물 300ml, 간장 4큰술, 설탕 1큰술을 넣어주세요.","tip":"감자가 반쯤 잠기는 정도예요."},{"order":3,"text":"뚜껑을 덮고 중불에서 12분 끓여주세요.","tip":"젓가락이 절반쯤 들어가면 양파를 넣어요."},{"order":4,"text":"양파를 넣고 뚜껑을 연 채 6분 더 졸여주세요.","tip":"국물이 거의 없어질 때까지 저어요."},{"order":5,"text":"올리고당과 참기름을 넣고 불을 꺼주세요.","tip":"마지막에 깨를 뿌려요."}],"tips":["감자가 부서지지 않게 살살 저어요."]},
-    {"id":"eomuk-bokkeum","name":"어묵볶음","description":"단짠 양념으로 빠르게 볶아내는 친숙한 밑반찬이에요.","category":"볶음","difficulty":"쉬움","timeMinutes":12,"servings":3,"image":"assets/recipes/eomuk-bokkeum.webp","tags":["어묵","초간단","반찬"],"ingredients":[{"id":"fish-cake","name":"어묵","amount":"4장","optional":false},{"id":"onion","name":"양파","amount":"1/2개","optional":false},{"id":"green-onion","name":"대파","amount":"1/3대","optional":true},{"id":"soy-sauce","name":"간장","amount":"2큰술","optional":false}],"steps":[{"order":1,"text":"어묵은 2cm 너비로, 양파는 얇게 썰어주세요.","tip":"어묵에 뜨거운 물을 한번 부으면 기름기가 줄어요."},{"order":2,"text":"팬에 식용유를 두르고 양파를 중불에서 2분 볶아주세요.","tip":"양파가 살짝 투명해질 때까지 볶아요."},{"order":3,"text":"어묵과 물 3큰술, 간장 2큰술, 설탕 반 큰술을 넣어주세요.","tip":"물이 양념을 고르게 퍼지게 해요."},{"order":4,"text":"중불에서 4분 볶고 대파와 참기름을 넣어 마무리하세요.","tip":"바닥이 타지 않게 계속 저어요."}],"tips":["고춧가루 반 큰술을 넣으면 매콤해요."]},
-    {"id":"myeolchi-bokkeum","name":"멸치볶음","description":"바삭한 멸치에 고소하고 달콤한 맛을 더한 저장 반찬이에요.","category":"볶음","difficulty":"쉬움","timeMinutes":10,"servings":4,"image":"assets/recipes/myeolchi-bokkeum.webp","tags":["멸치","10분","밑반찬"],"ingredients":[{"id":"anchovy","name":"잔멸치","amount":"100g","optional":false},{"id":"nut","name":"견과류","amount":"30g","optional":true},{"id":"soy-sauce","name":"간장","amount":"1작은술","optional":false},{"id":"syrup","name":"올리고당","amount":"1큰술","optional":false}],"steps":[{"order":1,"text":"마른 팬에 멸치를 넣고 중약불에서 2분 볶아주세요.","tip":"비린 향과 수분을 날려요."},{"order":2,"text":"볶은 멸치를 접시에 잠시 덜어주세요.","tip":"팬의 부스러기는 닦아내요."},{"order":3,"text":"팬에 식용유 1큰술과 간장 1작은술, 설탕 반 큰술을 넣고 약불로 데워주세요.","tip":"양념이 끓기 시작하면 바로 다음 단계로 가요."},{"order":4,"text":"멸치와 견과류를 넣고 2분 빠르게 섞어주세요.","tip":"불을 끄고 올리고당을 넣어야 덜 딱딱해요."}],"tips":["완전히 식힌 뒤 용기에 담아요."]},
-    {"id":"kongnamul-muchim","name":"콩나물무침","description":"아삭한 콩나물에 참기름 향을 더한 가벼운 반찬이에요.","category":"반찬","difficulty":"쉬움","timeMinutes":12,"servings":3,"image":"assets/recipes/kongnamul-muchim.webp","tags":["콩나물","채소","초간단"],"ingredients":[{"id":"bean-sprout","name":"콩나물","amount":"300g","optional":false},{"id":"green-onion","name":"대파","amount":"1/3대","optional":false},{"id":"garlic","name":"다진 마늘","amount":"1/2작은술","optional":false},{"id":"sesame-oil","name":"참기름","amount":"1큰술","optional":false}],"steps":[{"order":1,"text":"콩나물은 찬물에 두 번 씻고 상한 부분을 골라내세요.","tip":"물기를 가볍게 털어요."},{"order":2,"text":"냄비에 물 500ml를 끓이고 콩나물을 넣어 4분 데쳐주세요.","tip":"뚜껑은 열어둔 채 익혀요."},{"order":3,"text":"콩나물을 체에 밭쳐 한 김 식혀주세요.","tip":"찬물에 씻지 않으면 고소한 맛이 남아요."},{"order":4,"text":"소금 반 작은술, 마늘, 대파, 참기름을 넣고 가볍게 무쳐주세요.","tip":"손으로 세게 누르지 않아요."}],"tips":["고춧가루를 넣어 빨갛게 무쳐도 좋아요."]},
-    {"id":"zucchini-bokkeum","name":"애호박볶음","description":"부드러운 애호박과 새우젓의 감칠맛이 좋은 채소 반찬이에요.","category":"채소","difficulty":"쉬움","timeMinutes":15,"servings":3,"image":"assets/recipes/zucchini-bokkeum.webp","tags":["애호박","채소","15분"],"ingredients":[{"id":"zucchini","name":"애호박","amount":"1개","optional":false},{"id":"onion","name":"양파","amount":"1/3개","optional":false},{"id":"green-onion","name":"대파","amount":"1/3대","optional":true},{"id":"salted-shrimp","name":"새우젓","amount":"1작은술","optional":false}],"steps":[{"order":1,"text":"애호박은 세로로 반 자른 뒤 5mm 두께로 썰어주세요.","tip":"너무 얇으면 볶을 때 물러져요."},{"order":2,"text":"양파는 얇게 썰고 대파는 송송 썰어주세요.","tip":"재료를 미리 준비해 두면 빠르게 볶을 수 있어요."},{"order":3,"text":"팬에 식용유를 두르고 양파와 애호박을 중불에서 4분 볶아주세요.","tip":"팬을 가끔 흔들어 고르게 익혀요."},{"order":4,"text":"새우젓 1작은술과 물 2큰술을 넣고 3분 더 볶아주세요.","tip":"애호박이 반투명해지면 익은 거예요."},{"order":5,"text":"대파와 참기름을 넣고 섞은 뒤 불을 꺼주세요.","tip":"간을 보고 부족하면 소금을 조금 넣어요."}],"tips":["새우젓 대신 소금으로 간해도 괜찮아요."]},
-    {"id":"gamja-bokkeum","name":"감자채볶음","description":"가늘게 썬 감자를 담백하게 볶은 누구나 좋아하는 반찬이에요.","category":"채소","difficulty":"쉬움","timeMinutes":20,"servings":3,"image":"assets/recipes/gamja-bokkeum.webp","tags":["감자","채소","반찬"],"ingredients":[{"id":"potato","name":"감자","amount":"2개","optional":false},{"id":"onion","name":"양파","amount":"1/3개","optional":true},{"id":"carrot","name":"당근","amount":"1/4개","optional":true},{"id":"salt","name":"소금","amount":"1/2작은술","optional":false}],"steps":[{"order":1,"text":"감자는 3mm 굵기로 채 썰어 찬물에 5분 담가주세요.","tip":"전분을 빼야 서로 붙지 않아요."},{"order":2,"text":"양파와 당근도 감자와 비슷한 굵기로 채 썰어주세요.","tip":"굵기가 같으면 익는 속도가 비슷해요."},{"order":3,"text":"감자의 물기를 빼고 팬에 식용유와 함께 넣어 중불에서 5분 볶아주세요.","tip":"처음 1분은 자주 젓지 않아요."},{"order":4,"text":"양파와 당근, 소금을 넣고 5분 더 볶아주세요.","tip":"감자가 투명해지고 부드러워지면 완성이에요."}],"tips":["후추를 조금 넣으면 향이 좋아요."]},
-    {"id":"tuna-mayo-rice","name":"참치마요덮밥","description":"참치와 고소한 마요네즈로 10분 만에 만드는 든든한 덮밥이에요.","category":"밥","difficulty":"쉬움","timeMinutes":10,"servings":1,"image":"assets/recipes/tuna-mayo-rice.webp","tags":["참치","밥","10분"],"ingredients":[{"id":"rice","name":"밥","amount":"1공기","optional":false},{"id":"tuna","name":"참치캔","amount":"1캔","optional":false},{"id":"egg","name":"계란","amount":"1개","optional":true},{"id":"mayonnaise","name":"마요네즈","amount":"2큰술","optional":false}],"steps":[{"order":1,"text":"참치캔의 기름이나 물을 체에 밭쳐 빼주세요.","tip":"캔 가장자리에 손을 베이지 않게 주의해요."},{"order":2,"text":"참치에 마요네즈 2큰술과 후추를 조금 넣어 섞어주세요.","tip":"단맛을 원하면 설탕 한 꼬집을 넣어요."},{"order":3,"text":"계란은 팬에서 노른자까지 원하는 정도로 익혀주세요.","tip":"완숙은 뚜껑을 덮고 1분 더 익혀요."},{"order":4,"text":"따뜻한 밥 위에 참치마요와 계란을 올려주세요.","tip":"간장 반 작은술과 김가루를 곁들여요."}],"tips":["양파를 잘게 다져 넣으면 아삭해요."]}
+    {
+      "id": "street-toast",
+      "name": "길거리 계란토스트",
+      "description": "양배추와 계란을 넣어 달콤짭짤하게 만드는 든든한 간식이에요.",
+      "category": "토스트",
+      "difficulty": "쉬움",
+      "timeMinutes": 15,
+      "servings": 1,
+      "emoji": "🥪",
+      "tags": [
+        "토스트",
+        "계란",
+        "15분"
+      ],
+      "ingredients": [
+        {
+          "id": "bread",
+          "name": "식빵",
+          "amount": "2장",
+          "optional": false
+        },
+        {
+          "id": "egg",
+          "name": "계란",
+          "amount": "1개",
+          "optional": false
+        },
+        {
+          "id": "cabbage",
+          "name": "양배추",
+          "amount": "한 줌",
+          "optional": false
+        },
+        {
+          "id": "carrot",
+          "name": "당근",
+          "amount": "2큰술",
+          "optional": true
+        },
+        {
+          "id": "cheese",
+          "name": "슬라이스 치즈",
+          "amount": "1장",
+          "optional": true
+        },
+        {
+          "id": "ketchup",
+          "name": "케첩",
+          "amount": "1큰술",
+          "optional": false
+        }
+      ],
+      "steps": [
+        {
+          "order": 1,
+          "text": "양배추와 당근을 가늘게 채 썰어주세요.",
+          "tip": "채소를 가늘게 썰면 계란과 잘 붙어요."
+        },
+        {
+          "order": 2,
+          "text": "계란을 풀어 채소와 소금 한 꼬집을 섞어주세요.",
+          "tip": "젓가락으로 20초 정도만 섞어요."
+        },
+        {
+          "order": 3,
+          "text": "팬에 식용유를 두르고 계란 채소 반죽을 중불에서 앞뒤로 2분씩 익혀주세요.",
+          "tip": "계란은 속까지 완전히 익혀주세요."
+        },
+        {
+          "order": 4,
+          "text": "식빵을 팬에서 앞뒤로 1분씩 노릇하게 구워주세요.",
+          "tip": "버터를 조금 바르면 더 고소해요."
+        },
+        {
+          "order": 5,
+          "text": "식빵 사이에 계란, 치즈, 케첩을 넣고 반으로 잘라주세요.",
+          "tip": "설탕을 아주 조금 뿌리면 길거리 토스트 맛이 나요."
+        }
+      ],
+      "tips": [
+        "따뜻할 때 바로 먹으면 가장 맛있어요."
+      ],
+      "image": "assets/snacks/street-toast.svg"
+    },
+    {
+      "id": "french-toast",
+      "name": "폭신한 프렌치토스트",
+      "description": "우유와 계란을 머금은 식빵을 부드럽게 구운 달콤한 간식이에요.",
+      "category": "토스트",
+      "difficulty": "쉬움",
+      "timeMinutes": 12,
+      "servings": 1,
+      "emoji": "🍞",
+      "tags": [
+        "식빵",
+        "달콤",
+        "초간단"
+      ],
+      "ingredients": [
+        {
+          "id": "bread",
+          "name": "식빵",
+          "amount": "2장",
+          "optional": false
+        },
+        {
+          "id": "egg",
+          "name": "계란",
+          "amount": "1개",
+          "optional": false
+        },
+        {
+          "id": "milk",
+          "name": "우유",
+          "amount": "80ml",
+          "optional": false
+        },
+        {
+          "id": "sugar",
+          "name": "설탕",
+          "amount": "1큰술",
+          "optional": false
+        },
+        {
+          "id": "butter",
+          "name": "버터",
+          "amount": "1작은술",
+          "optional": true
+        }
+      ],
+      "steps": [
+        {
+          "order": 1,
+          "text": "그릇에 계란, 우유, 설탕을 넣고 고르게 섞어주세요.",
+          "tip": "거품이 많이 나지 않게 천천히 섞어요."
+        },
+        {
+          "order": 2,
+          "text": "식빵을 계란물에 앞뒤로 20초씩 적셔주세요.",
+          "tip": "너무 오래 담그면 식빵이 찢어질 수 있어요."
+        },
+        {
+          "order": 3,
+          "text": "약불로 달군 팬에 버터를 녹이고 식빵을 올려주세요.",
+          "tip": "약불에서 천천히 익혀야 속까지 부드러워요."
+        },
+        {
+          "order": 4,
+          "text": "앞뒤로 3분씩 익혀 계란이 완전히 익으면 꺼내주세요.",
+          "tip": "중앙까지 촉촉하게 익었는지 확인하세요."
+        }
+      ],
+      "tips": [
+        "바나나나 꿀을 곁들이면 좋아요."
+      ],
+      "image": "assets/snacks/french-toast.svg"
+    },
+    {
+      "id": "tteok-kkochi",
+      "name": "매콤달콤 떡꼬치",
+      "description": "쫄깃한 떡에 매콤달콤한 양념을 바른 추억의 분식 간식이에요.",
+      "category": "분식",
+      "difficulty": "쉬움",
+      "timeMinutes": 15,
+      "servings": 2,
+      "emoji": "🍢",
+      "tags": [
+        "떡",
+        "분식",
+        "매콤달콤"
+      ],
+      "ingredients": [
+        {
+          "id": "rice-cake",
+          "name": "떡볶이 떡",
+          "amount": "20개",
+          "optional": false
+        },
+        {
+          "id": "gochujang",
+          "name": "고추장",
+          "amount": "1큰술",
+          "optional": false
+        },
+        {
+          "id": "ketchup",
+          "name": "케첩",
+          "amount": "2큰술",
+          "optional": false
+        },
+        {
+          "id": "syrup",
+          "name": "올리고당",
+          "amount": "1큰술",
+          "optional": false
+        },
+        {
+          "id": "sesame",
+          "name": "깨",
+          "amount": "약간",
+          "optional": true
+        }
+      ],
+      "steps": [
+        {
+          "order": 1,
+          "text": "딱딱한 떡은 따뜻한 물에 3분 담가 부드럽게 해주세요.",
+          "tip": "말랑한 떡은 바로 사용해도 돼요."
+        },
+        {
+          "order": 2,
+          "text": "떡을 꼬치에 4개씩 꽂아주세요.",
+          "tip": "꼬치 끝이 뾰족하니 손을 조심하세요."
+        },
+        {
+          "order": 3,
+          "text": "팬에 기름을 조금 두르고 떡을 중불에서 앞뒤로 2분씩 구워주세요.",
+          "tip": "떡 표면이 살짝 노릇해지면 돼요."
+        },
+        {
+          "order": 4,
+          "text": "고추장, 케첩, 올리고당과 물 1큰술을 섞어 약불에서 1분 끓여주세요.",
+          "tip": "양념이 튀지 않게 약불을 사용해요."
+        },
+        {
+          "order": 5,
+          "text": "구운 떡에 양념을 골고루 바르고 깨를 뿌려주세요.",
+          "tip": "어린이가 먹는다면 고추장 양을 줄여요."
+        }
+      ],
+      "tips": [
+        "치즈가루를 살짝 뿌려도 잘 어울려요."
+      ],
+      "image": "assets/snacks/tteok-kkochi.svg"
+    },
+    {
+      "id": "tteokbokki-cup",
+      "name": "컵 떡볶이",
+      "description": "한두 명이 가볍게 즐기기 좋은 빠른 떡볶이 간식이에요.",
+      "category": "분식",
+      "difficulty": "쉬움",
+      "timeMinutes": 20,
+      "servings": 2,
+      "emoji": "🌶️",
+      "tags": [
+        "떡볶이",
+        "분식",
+        "매콤"
+      ],
+      "ingredients": [
+        {
+          "id": "rice-cake",
+          "name": "떡볶이 떡",
+          "amount": "250g",
+          "optional": false
+        },
+        {
+          "id": "fish-cake",
+          "name": "어묵",
+          "amount": "2장",
+          "optional": true
+        },
+        {
+          "id": "gochujang",
+          "name": "고추장",
+          "amount": "1큰술",
+          "optional": false
+        },
+        {
+          "id": "chili-powder",
+          "name": "고춧가루",
+          "amount": "1작은술",
+          "optional": false
+        },
+        {
+          "id": "sugar",
+          "name": "설탕",
+          "amount": "1큰술",
+          "optional": false
+        }
+      ],
+      "steps": [
+        {
+          "order": 1,
+          "text": "떡은 물에 한번 헹구고 어묵은 한입 크기로 잘라주세요.",
+          "tip": "떡이 딱딱하면 미지근한 물에 5분 담가요."
+        },
+        {
+          "order": 2,
+          "text": "냄비에 물 400ml, 고추장, 고춧가루, 설탕을 넣고 끓여주세요.",
+          "tip": "양념을 먼저 풀어야 덩어리가 생기지 않아요."
+        },
+        {
+          "order": 3,
+          "text": "물이 끓으면 떡과 어묵을 넣고 중불에서 8분 끓여주세요.",
+          "tip": "바닥에 붙지 않게 중간중간 저어요."
+        },
+        {
+          "order": 4,
+          "text": "국물이 걸쭉해지고 떡이 말랑해지면 불을 꺼주세요.",
+          "tip": "너무 졸면 물을 2큰술 추가해요."
+        }
+      ],
+      "tips": [
+        "삶은 계란을 곁들이면 든든해요."
+      ],
+      "image": "assets/snacks/tteokbokki-cup.svg"
+    },
+    {
+      "id": "corn-cheese",
+      "name": "전자레인지 콘치즈",
+      "description": "옥수수와 치즈만 있으면 10분 안에 만드는 고소한 간식이에요.",
+      "category": "전자레인지",
+      "difficulty": "아주 쉬움",
+      "timeMinutes": 8,
+      "servings": 1,
+      "emoji": "🌽",
+      "tags": [
+        "옥수수",
+        "치즈",
+        "전자레인지"
+      ],
+      "ingredients": [
+        {
+          "id": "corn",
+          "name": "통조림 옥수수",
+          "amount": "150g",
+          "optional": false
+        },
+        {
+          "id": "cheese",
+          "name": "모차렐라 치즈",
+          "amount": "70g",
+          "optional": false
+        },
+        {
+          "id": "mayonnaise",
+          "name": "마요네즈",
+          "amount": "1큰술",
+          "optional": false
+        },
+        {
+          "id": "sugar",
+          "name": "설탕",
+          "amount": "1작은술",
+          "optional": true
+        }
+      ],
+      "steps": [
+        {
+          "order": 1,
+          "text": "옥수수의 물기를 충분히 빼주세요.",
+          "tip": "물기가 많으면 콘치즈가 묽어져요."
+        },
+        {
+          "order": 2,
+          "text": "전자레인지용 그릇에 옥수수, 마요네즈, 설탕을 섞어주세요.",
+          "tip": "전자레인지 사용 가능한 그릇인지 확인하세요."
+        },
+        {
+          "order": 3,
+          "text": "모차렐라 치즈를 고르게 덮어주세요.",
+          "tip": "치즈를 너무 두껍게 올리지 않아도 돼요."
+        },
+        {
+          "order": 4,
+          "text": "전자레인지에서 1분 30초 돌리고 치즈가 덜 녹았으면 20초씩 추가해주세요.",
+          "tip": "그릇이 매우 뜨거울 수 있으니 장갑을 사용하세요."
+        }
+      ],
+      "tips": [
+        "파슬리나 후추를 조금 뿌리면 향이 좋아요."
+      ],
+      "image": "assets/snacks/corn-cheese.svg"
+    },
+    {
+      "id": "sweet-potato-matang",
+      "name": "고구마 맛탕",
+      "description": "겉은 바삭하고 속은 포슬한 고구마에 달콤한 코팅을 입힌 간식이에요.",
+      "category": "달콤",
+      "difficulty": "보통",
+      "timeMinutes": 20,
+      "servings": 2,
+      "emoji": "🍠",
+      "tags": [
+        "고구마",
+        "달콤",
+        "간식"
+      ],
+      "ingredients": [
+        {
+          "id": "sweet-potato",
+          "name": "고구마",
+          "amount": "2개",
+          "optional": false
+        },
+        {
+          "id": "sugar",
+          "name": "설탕",
+          "amount": "2큰술",
+          "optional": false
+        },
+        {
+          "id": "syrup",
+          "name": "올리고당",
+          "amount": "1큰술",
+          "optional": false
+        },
+        {
+          "id": "sesame",
+          "name": "검은깨",
+          "amount": "약간",
+          "optional": true
+        }
+      ],
+      "steps": [
+        {
+          "order": 1,
+          "text": "고구마는 깨끗이 씻어 한입 크기로 썰어주세요.",
+          "tip": "껍질은 취향에 따라 남겨도 좋아요."
+        },
+        {
+          "order": 2,
+          "text": "고구마를 물에 3분 담근 뒤 물기를 완전히 닦아주세요.",
+          "tip": "물기가 남으면 기름이 튈 수 있어요."
+        },
+        {
+          "order": 3,
+          "text": "팬에 식용유를 넉넉히 두르고 중불에서 고구마를 8분 굴려가며 익혀주세요.",
+          "tip": "젓가락이 들어가면 속까지 익은 거예요."
+        },
+        {
+          "order": 4,
+          "text": "다른 팬에 설탕, 올리고당, 물 1큰술을 넣고 약불에서 녹여주세요.",
+          "tip": "설탕 시럽은 매우 뜨거우니 손에 닿지 않게 조심하세요."
+        },
+        {
+          "order": 5,
+          "text": "고구마를 시럽에 빠르게 버무리고 검은깨를 뿌려주세요.",
+          "tip": "서로 붙지 않게 접시에 펼쳐 식혀요."
+        }
+      ],
+      "tips": [
+        "완전히 식으면 겉면이 더 바삭해져요."
+      ],
+      "image": "assets/snacks/sweet-potato-matang.svg"
+    },
+    {
+      "id": "butter-potato",
+      "name": "버터 감자구이",
+      "description": "팬에 노릇하게 구운 감자에 버터 향을 더한 짭짤한 간식이에요.",
+      "category": "간편",
+      "difficulty": "쉬움",
+      "timeMinutes": 15,
+      "servings": 2,
+      "emoji": "🥔",
+      "tags": [
+        "감자",
+        "버터",
+        "간편"
+      ],
+      "ingredients": [
+        {
+          "id": "potato",
+          "name": "감자",
+          "amount": "2개",
+          "optional": false
+        },
+        {
+          "id": "butter",
+          "name": "버터",
+          "amount": "1큰술",
+          "optional": false
+        },
+        {
+          "id": "salt",
+          "name": "소금",
+          "amount": "2꼬집",
+          "optional": false
+        },
+        {
+          "id": "parsley",
+          "name": "파슬리",
+          "amount": "약간",
+          "optional": true
+        }
+      ],
+      "steps": [
+        {
+          "order": 1,
+          "text": "감자는 깨끗이 씻고 1cm 두께로 썰어주세요.",
+          "tip": "두께를 비슷하게 맞추면 고르게 익어요."
+        },
+        {
+          "order": 2,
+          "text": "전자레인지용 그릇에 감자를 담아 3분 익혀주세요.",
+          "tip": "그릇이 뜨거워질 수 있어요."
+        },
+        {
+          "order": 3,
+          "text": "팬에 버터를 녹이고 감자를 중불에서 앞뒤로 3분씩 구워주세요.",
+          "tip": "노릇해질 때까지 너무 자주 뒤집지 않아요."
+        },
+        {
+          "order": 4,
+          "text": "소금과 파슬리를 뿌리고 불을 꺼주세요.",
+          "tip": "치즈가루를 뿌려도 맛있어요."
+        }
+      ],
+      "tips": [
+        "케첩이나 요거트 소스를 곁들여도 좋아요."
+      ],
+      "image": "assets/snacks/butter-potato.svg"
+    },
+    {
+      "id": "banana-pancake",
+      "name": "바나나 팬케이크",
+      "description": "잘 익은 바나나로 자연스러운 단맛을 낸 부드러운 팬케이크예요.",
+      "category": "디저트",
+      "difficulty": "쉬움",
+      "timeMinutes": 15,
+      "servings": 2,
+      "emoji": "🥞",
+      "tags": [
+        "바나나",
+        "팬케이크",
+        "디저트"
+      ],
+      "ingredients": [
+        {
+          "id": "banana",
+          "name": "바나나",
+          "amount": "1개",
+          "optional": false
+        },
+        {
+          "id": "egg",
+          "name": "계란",
+          "amount": "1개",
+          "optional": false
+        },
+        {
+          "id": "flour",
+          "name": "밀가루",
+          "amount": "5큰술",
+          "optional": false
+        },
+        {
+          "id": "milk",
+          "name": "우유",
+          "amount": "3큰술",
+          "optional": false
+        }
+      ],
+      "steps": [
+        {
+          "order": 1,
+          "text": "바나나를 그릇에 넣고 포크로 곱게 으깨주세요.",
+          "tip": "검은 점이 생긴 잘 익은 바나나가 달아요."
+        },
+        {
+          "order": 2,
+          "text": "계란과 우유를 넣고 고르게 섞어주세요.",
+          "tip": "계란 껍데기가 들어가지 않았는지 확인해요."
+        },
+        {
+          "order": 3,
+          "text": "밀가루를 넣고 가루가 보이지 않을 정도로만 섞어주세요.",
+          "tip": "너무 오래 섞으면 식감이 질겨질 수 있어요."
+        },
+        {
+          "order": 4,
+          "text": "약불로 달군 팬에 반죽을 한 국자씩 올리고 앞뒤로 2분씩 익혀주세요.",
+          "tip": "계란이 들어가므로 가운데까지 충분히 익혀주세요."
+        }
+      ],
+      "tips": [
+        "꿀이나 견과류를 곁들이면 좋아요."
+      ],
+      "image": "assets/snacks/banana-pancake.svg"
+    },
+    {
+      "id": "fruit-yogurt",
+      "name": "과일 요거트볼",
+      "description": "제철 과일과 요거트를 담아 5분 만에 만드는 산뜻한 간식이에요.",
+      "category": "건강",
+      "difficulty": "아주 쉬움",
+      "timeMinutes": 5,
+      "servings": 1,
+      "emoji": "🍓",
+      "tags": [
+        "과일",
+        "요거트",
+        "5분"
+      ],
+      "ingredients": [
+        {
+          "id": "yogurt",
+          "name": "플레인 요거트",
+          "amount": "150g",
+          "optional": false
+        },
+        {
+          "id": "banana",
+          "name": "바나나",
+          "amount": "1/2개",
+          "optional": false
+        },
+        {
+          "id": "strawberry",
+          "name": "딸기",
+          "amount": "4개",
+          "optional": true
+        },
+        {
+          "id": "granola",
+          "name": "그래놀라",
+          "amount": "3큰술",
+          "optional": true
+        },
+        {
+          "id": "honey",
+          "name": "꿀",
+          "amount": "1작은술",
+          "optional": true
+        }
+      ],
+      "steps": [
+        {
+          "order": 1,
+          "text": "과일은 흐르는 물에 깨끗이 씻어 물기를 닦아주세요.",
+          "tip": "딸기는 꼭지를 떼기 전에 씻으면 물이 덜 들어가요."
+        },
+        {
+          "order": 2,
+          "text": "바나나와 딸기를 한입 크기로 잘라주세요.",
+          "tip": "아이와 함께 만들 때 칼 사용은 어른이 도와주세요."
+        },
+        {
+          "order": 3,
+          "text": "그릇에 요거트를 담고 과일과 그래놀라를 올려주세요.",
+          "tip": "바삭한 그래놀라는 먹기 직전에 넣어요."
+        },
+        {
+          "order": 4,
+          "text": "원하면 꿀을 한 작은술 둘러 마무리하세요.",
+          "tip": "한 살 미만 영아에게는 꿀을 주지 마세요."
+        }
+      ],
+      "tips": [
+        "냉동 블루베리를 조금 넣어도 상큼해요."
+      ],
+      "image": "assets/snacks/fruit-yogurt.svg"
+    },
+    {
+      "id": "ramen-ttang",
+      "name": "바삭 라면땅",
+      "description": "라면을 바삭하게 구워 달콤짭짤하게 즐기는 초간단 간식이에요.",
+      "category": "바삭",
+      "difficulty": "아주 쉬움",
+      "timeMinutes": 10,
+      "servings": 2,
+      "emoji": "🍜",
+      "tags": [
+        "라면",
+        "바삭",
+        "10분"
+      ],
+      "ingredients": [
+        {
+          "id": "ramen",
+          "name": "라면사리",
+          "amount": "1개",
+          "optional": false
+        },
+        {
+          "id": "sugar",
+          "name": "설탕",
+          "amount": "1큰술",
+          "optional": false
+        },
+        {
+          "id": "ramen-soup",
+          "name": "라면수프",
+          "amount": "1/3봉",
+          "optional": true
+        }
+      ],
+      "steps": [
+        {
+          "order": 1,
+          "text": "라면사리를 먹기 좋은 크기로 조심스럽게 부숴주세요.",
+          "tip": "너무 잘게 부수지 않으면 먹기 편해요."
+        },
+        {
+          "order": 2,
+          "text": "마른 팬에 라면을 넣고 약불에서 5분 뒤집어가며 구워주세요.",
+          "tip": "타기 쉬우니 약불을 유지해요."
+        },
+        {
+          "order": 3,
+          "text": "불을 끄고 설탕과 라면수프를 조금씩 뿌려 섞어주세요.",
+          "tip": "수프는 짤 수 있으니 처음에는 적게 넣어요."
+        },
+        {
+          "order": 4,
+          "text": "접시에 넓게 펼쳐 2분 식혀 바삭하게 만들어주세요.",
+          "tip": "뜨거울 때 바로 먹지 마세요."
+        }
+      ],
+      "tips": [
+        "계피가루를 아주 조금 뿌리면 색다른 맛이에요."
+      ],
+      "image": "assets/snacks/ramen-ttang.svg"
+    },
+    {
+      "id": "egg-bread",
+      "name": "컵 계란빵",
+      "description": "식빵과 계란을 컵에 담아 만드는 든든하고 따뜻한 간식이에요.",
+      "category": "전자레인지",
+      "difficulty": "쉬움",
+      "timeMinutes": 8,
+      "servings": 1,
+      "emoji": "🥚",
+      "tags": [
+        "계란",
+        "식빵",
+        "전자레인지"
+      ],
+      "ingredients": [
+        {
+          "id": "bread",
+          "name": "식빵",
+          "amount": "1장",
+          "optional": false
+        },
+        {
+          "id": "egg",
+          "name": "계란",
+          "amount": "1개",
+          "optional": false
+        },
+        {
+          "id": "cheese",
+          "name": "슬라이스 치즈",
+          "amount": "1/2장",
+          "optional": true
+        },
+        {
+          "id": "milk",
+          "name": "우유",
+          "amount": "1큰술",
+          "optional": true
+        }
+      ],
+      "steps": [
+        {
+          "order": 1,
+          "text": "전자레인지용 넓은 컵 안쪽에 식빵을 잘라 눌러 담아주세요.",
+          "tip": "금속 장식이 없는 컵을 사용하세요."
+        },
+        {
+          "order": 2,
+          "text": "식빵 위에 계란을 깨 넣고 노른자를 포크로 두세 번 찔러주세요.",
+          "tip": "노른자를 찌르지 않으면 전자레인지에서 터질 수 있어요."
+        },
+        {
+          "order": 3,
+          "text": "치즈와 우유를 조금 넣고 전자레인지에서 1분 20초 돌려주세요.",
+          "tip": "전자레인지 출력에 따라 시간이 달라질 수 있어요."
+        },
+        {
+          "order": 4,
+          "text": "계란 흰자와 노른자가 충분히 익었는지 확인하고 필요하면 15초씩 추가해주세요.",
+          "tip": "컵이 매우 뜨거울 수 있으니 장갑을 사용하세요."
+        }
+      ],
+      "tips": [
+        "케첩을 조금 곁들이면 좋아요."
+      ],
+      "image": "assets/snacks/egg-bread.svg"
+    },
+    {
+      "id": "choco-mug-cake",
+      "name": "초코 머그케이크",
+      "description": "머그컵 하나로 빠르게 만드는 촉촉한 초코 디저트예요.",
+      "category": "디저트",
+      "difficulty": "아주 쉬움",
+      "timeMinutes": 5,
+      "servings": 1,
+      "emoji": "🍫",
+      "tags": [
+        "초코",
+        "전자레인지",
+        "5분"
+      ],
+      "ingredients": [
+        {
+          "id": "flour",
+          "name": "밀가루",
+          "amount": "4큰술",
+          "optional": false
+        },
+        {
+          "id": "cocoa",
+          "name": "코코아가루",
+          "amount": "1큰술",
+          "optional": false
+        },
+        {
+          "id": "sugar",
+          "name": "설탕",
+          "amount": "1큰술",
+          "optional": false
+        },
+        {
+          "id": "milk",
+          "name": "우유",
+          "amount": "4큰술",
+          "optional": false
+        },
+        {
+          "id": "oil",
+          "name": "식용유",
+          "amount": "1큰술",
+          "optional": false
+        }
+      ],
+      "steps": [
+        {
+          "order": 1,
+          "text": "큰 머그컵에 밀가루, 코코아가루, 설탕을 넣어 섞어주세요.",
+          "tip": "머그컵은 전자레인지 사용 가능한 제품을 사용하세요."
+        },
+        {
+          "order": 2,
+          "text": "우유와 식용유를 넣고 가루 덩어리가 거의 없어질 때까지 섞어주세요.",
+          "tip": "컵의 절반 이상 비워두어야 넘치지 않아요."
+        },
+        {
+          "order": 3,
+          "text": "전자레인지에서 1분 돌린 뒤 가운데가 덜 익었으면 15초씩 추가해주세요.",
+          "tip": "너무 오래 익히면 케이크가 딱딱해져요."
+        },
+        {
+          "order": 4,
+          "text": "1분 식힌 뒤 숟가락으로 떠서 드세요.",
+          "tip": "컵이 뜨거울 수 있으니 손잡이를 잡아주세요."
+        }
+      ],
+      "tips": [
+        "초콜릿 조각을 가운데 넣으면 더 진해져요."
+      ],
+      "image": "assets/snacks/choco-mug-cake.svg"
+    }
   ]
 }
