@@ -7,7 +7,7 @@
 - 오늘의 추천과 무작위 다시 추천
 - 요리명·재료 검색, 카테고리·시간·난이도 필터
 - 재료 체크와 초보자용 단계별 설명
-- `speechSynthesis` 기반 `ko-KR` 전체/현재 단계 읽기
+- Google Cloud Text-to-Speech 기반 `ko-KR` 전체/현재 단계 읽기, 일시정지·다시 듣기
 - `localStorage` 장보기 추가, 체크, 삭제, 새로고침 유지
 - 보유 재료와 필수 재료 비교 추천
 - Apps Script API 우선, 5초 내 실패 시 로컬 JSON fallback
@@ -15,7 +15,7 @@
 
 ## Architecture
 
-GitHub Pages → optional Google Apps Script Web App → Google Sheet (`Recipes`, `Ingredients`, `Settings`). Browser-only features are speech and shopping storage. 자세한 설명은 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)를 참고하세요.
+GitHub Pages → Google Apps Script Web App → Google Sheet (`Recipes`, `Ingredients`, `Settings`) + Google Cloud Text-to-Speech. 음성 합성은 서버측 Apps Script가 처리하고 브라우저는 MP3만 재생합니다. 장보기 상태는 브라우저 로컬 저장소를 사용합니다. 자세한 설명은 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)를 참고하세요.
 
 ## Run locally
 
@@ -35,4 +35,4 @@ GitHub Pages → optional Google Apps Script Web App → Google Sheet (`Recipes`
 
 ## Security
 
-공개 GET API만 사용하며 저장소에 OAuth token, service-account JSON, API key, GitHub token, password, credential, `.env` secret을 두지 않습니다.
+저장소와 프런트엔드에 OAuth token, service-account JSON, API key, GitHub token, password, credential, `.env` secret을 두지 않습니다. Google Cloud TTS 인증은 Apps Script의 서버측 OAuth 토큰으로 처리하며, 공개 TTS 호출에는 길이 제한·일일 문자 제한·캐시를 적용합니다.
