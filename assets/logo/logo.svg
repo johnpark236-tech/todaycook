@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title">
+  <title id="title">오늘 무엇을 요리하지? 냄비 로고</title>
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ff8a3d"/><stop offset="1" stop-color="#ff542e"/></linearGradient></defs>
+  <rect width="128" height="128" rx="30" fill="url(#g)"/>
+  <g fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path d="M32 57h64l-5 38H37z" fill="#fff" fill-opacity=".12"/><path d="M25 57h78M43 95h42M47 47c-5-8 4-12 0-20M64 47c-5-8 4-12 0-20M81 47c-5-8 4-12 0-20"/></g>
+</svg>
