@@ -23,7 +23,12 @@ Tested 2026-10-02 in the browser against a local HTTP server before deployment.
 | 430px viewport | PASS — no horizontal overflow |
 | 1440px viewport | PASS — centered 520px app and no horizontal overflow |
 | Browser console warnings/errors | PASS — 0 |
+| GitHub Pages build | PASS — branch build completed successfully |
+| Production HTTP | PASS — `https://johnpark236-tech.github.io/todaycook/` returned 200 |
+| Production home / image loading | PASS — 390×844, visible images loaded, no horizontal overflow |
+| Production recipe / cooking route | PASS — 김치찌개 detail and `#/cook/kimchi-jjigae` verified |
+| Production console warnings/errors | PASS — 0 |
 
-Deletion controls are implemented but were not destructively exercised in browser automation. Their state functions use filtered array writes to the same storage key. Production HTTP and Pages workflow checks are recorded in the final report after deployment.
+Deletion controls are implemented but were not destructively exercised in browser automation. Their state functions use filtered array writes to the same storage key.
 
 The speech implementation sets `ko-KR`, reacts to delayed voice loading, cancels before a new utterance and on route changes, and leaves all non-speech functionality available when unsupported.
