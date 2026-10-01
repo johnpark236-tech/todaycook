@@ -27,7 +27,7 @@ GitHub Pages → optional Google Apps Script Web App → Google Sheet (`Recipes`
 
 ## GitHub Pages
 
-`main`에 push하면 Pages workflow가 배포합니다. 운영 주소는 `https://johnpark236-tech.github.io/todaycook/`입니다.
+`main`에 push하면 GitHub Pages가 branch root에서 배포합니다. 운영 주소는 `https://johnpark236-tech.github.io/todaycook/`입니다.
 
 ## ChatGPT maintenance
 

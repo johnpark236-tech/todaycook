@@ -2,7 +2,7 @@
 
 ## GitHub Pages
 
-Push `main`. `.github/workflows/pages.yml` uploads the repository as a static Pages artifact. In repository Settings → Pages, set Source to **GitHub Actions** if it is not already selected. Production is `https://johnpark236-tech.github.io/todaycook/`.
+Push `main`. The repository is configured to deploy directly from the `main` branch root (`/`). Production is `https://johnpark236-tech.github.io/todaycook/`.
 
 ## Google API
 
