@@ -1,13 +1,16 @@
-/** TodayCook public read-only API for Google Apps Script Web App. */
+/** TodayCook public API for recipes and server-side Google Cloud Text-to-Speech. */
 const TODAYCOOK_SHEET_NAMES = Object.freeze({
   RECIPES: 'Recipes', INGREDIENTS: 'Ingredients', SETTINGS: 'Settings'
+});
+const TODAYCOOK_TTS_DEFAULTS = Object.freeze({
+  LANGUAGE: 'ko-KR', VOICE: 'ko-KR-Neural2-A', RATE: 0.94, MAX_UTF8_BYTES: 4500
 });
 
 function doGet(e) {
   try {
     const action = String((e && e.parameter && e.parameter.action) || 'health').toLowerCase();
     let data;
-    if (action === 'health') data = { status: 'ok', service: 'TodayCook API', timestamp: new Date().toISOString() };
+    if (action === 'health') data = { status: 'ok', service: 'TodayCook API', timestamp: new Date().toISOString(), tts: 'google-cloud' };
     else if (action === 'recipes') data = getRecipes_();
     else if (action === 'recipe') {
       const id = String((e.parameter && e.parameter.id) || '');
@@ -21,6 +24,70 @@ function doGet(e) {
   } catch (error) {
     return json_({ ok: false, error: error.message || String(error) });
   }
+}
+
+function doPost(e) {
+  try {
+    const body = parsePostBody_(e);
+    const path = String((e && e.pathInfo) || '').replace(/^\/+|\/+$/g, '').toLowerCase();
+    const parameterAction = String((e && e.parameter && e.parameter.action) || '').toLowerCase();
+    const action = path === 'api/tts' ? 'tts' : String(body.action || parameterAction || '').toLowerCase();
+    if (action !== 'tts') throw new Error('Unknown POST action: ' + action);
+    return json_({ ok: true, data: synthesizeSpeech_(body) });
+  } catch (error) {
+    return json_({ ok: false, error: error.message || String(error) });
+  }
+}
+
+function synthesizeSpeech_(body) {
+  const text = String((body && body.text) || '').replace(/\s+/g, ' ').trim();
+  if (!text) throw new Error('TTS text is required.');
+  const byteLength = Utilities.newBlob(text).getBytes().length;
+  if (byteLength > TODAYCOOK_TTS_DEFAULTS.MAX_UTF8_BYTES) throw new Error('TTS text is too long.');
+
+  const props = PropertiesService.getScriptProperties();
+  const voice = props.getProperty('TODAYCOOK_TTS_VOICE') || TODAYCOOK_TTS_DEFAULTS.VOICE;
+  const rate = Number(props.getProperty('TODAYCOOK_TTS_RATE') || TODAYCOOK_TTS_DEFAULTS.RATE);
+  const cacheKey = 'tts:' + sha256_(voice + '|' + rate + '|' + text);
+  const cache = CacheService.getScriptCache();
+  const cached = cache.get(cacheKey);
+  if (cached) return { audioContent: cached, mimeType: 'audio/mpeg', voice: voice, rate: rate, cached: true };
+
+  const requestBody = {
+    input: { text: text },
+    voice: { languageCode: TODAYCOOK_TTS_DEFAULTS.LANGUAGE, name: voice, ssmlGender: 'FEMALE' },
+    audioConfig: { audioEncoding: 'MP3', speakingRate: rate }
+  };
+  const headers = { Authorization: 'Bearer ' + ScriptApp.getOAuthToken() };
+  const projectId = props.getProperty('TODAYCOOK_GCP_PROJECT_ID');
+  if (projectId) headers['x-goog-user-project'] = projectId;
+
+  const response = UrlFetchApp.fetch('https://texttospeech.googleapis.com/v1/text:synthesize', {
+    method: 'post',
+    contentType: 'application/json; charset=utf-8',
+    headers: headers,
+    payload: JSON.stringify(requestBody),
+    muteHttpExceptions: true
+  });
+  const status = response.getResponseCode();
+  const payload = parseJson_(response.getContentText(), {});
+  if (status < 200 || status >= 300 || !payload.audioContent) {
+    const message = payload && payload.error && payload.error.message ? payload.error.message : 'Google Cloud TTS request failed.';
+    throw new Error('TTS ' + status + ': ' + message);
+  }
+
+  if (payload.audioContent.length < 90000) cache.put(cacheKey, payload.audioContent, 21600);
+  return { audioContent: payload.audioContent, mimeType: 'audio/mpeg', voice: voice, rate: rate, cached: false };
+}
+
+function parsePostBody_(e) {
+  if (!e || !e.postData || !e.postData.contents) return {};
+  return parseJson_(e.postData.contents, {});
+}
+
+function sha256_(value) {
+  const digest = Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, value, Utilities.Charset.UTF_8);
+  return Utilities.base64EncodeWebSafe(digest).replace(/=+$/g, '');
 }
 
 function getRecipes_() {
