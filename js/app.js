@@ -23,9 +23,10 @@
     $$('.quick-chip').forEach(button => button.addEventListener('click', () => {
       const value = button.dataset.filter;
       recipeFilter = { query: '', category: '전체', time: 0, difficulty: '' };
-      if (value === '15분') recipeFilter.time = 15;
-      else if (value === '30분') recipeFilter.time = 30;
-      else if (value === '초간단') recipeFilter.difficulty = '쉬움';
+      if (value === '5분') recipeFilter.time = 5;
+      else if (value === '10분') recipeFilter.time = 10;
+      else if (value === '15분') recipeFilter.time = 15;
+      else if (value === '초간단') recipeFilter.difficulty = '아주 쉬움';
       else recipeFilter.category = value;
       location.hash = '#/recipes';
     }));
@@ -44,8 +45,8 @@
     const results = filteredRecipes();
     app.innerHTML = `<section><p class="eyebrow">쉬운 간식 모음</p><h1>간식 찾기</h1><div class="search-wrap"><span aria-hidden="true">⌕</span><label class="sr-only" for="recipe-search">간식명 또는 재료 검색</label><input id="recipe-search" type="search" value="${escapeHtml(recipeFilter.query)}" placeholder="간식명, 재료 검색"></div>
       <div class="chips filter-row" aria-label="카테고리">${categories.map(c=>`<button class="chip category ${recipeFilter.category===c?'active':''}" type="button" data-category="${c}">${c}</button>`).join('')}</div>
-      <div class="chips filter-row" aria-label="추가 필터"><button class="chip time ${recipeFilter.time===15?'active':''}" data-time="15">15분 이하</button><button class="chip time ${recipeFilter.time===10?'active':''}" data-time="10">10분 이하</button><button class="chip difficulty ${recipeFilter.difficulty==='쉬움'?'active':''}" data-difficulty="아주 쉬움">아주 쉬움</button><button class="chip difficulty ${recipeFilter.difficulty==='쉬움'?'active':''}" data-difficulty="쉬움">쉬움</button></div>
-      <div class="section-head"><h2>검색 결과 <small>(${results.length})</small></h2></div><div id="recipe-results">${results.length ? `<div class="recipe-grid">${results.map(recipeCard).join('')}</div>` : `<div class="empty"><span class="emoji">🔍</span><h2>조건에 맞는 요리를 찾지 못했어요.</h2><p>조건을 조금 줄여볼까요?</p><button class="button secondary" id="clear-filters">필터 초기화</button></div>`}</div></section>`;
+      <div class="chips filter-row" aria-label="추가 필터"><button class="chip time ${recipeFilter.time===15?'active':''}" data-time="15">15분 이하</button><button class="chip time ${recipeFilter.time===10?'active':''}" data-time="10">10분 이하</button><button class="chip difficulty ${recipeFilter.difficulty==='아주 쉬움'?'active':''}" data-difficulty="아주 쉬움">아주 쉬움</button><button class="chip difficulty ${recipeFilter.difficulty==='쉬움'?'active':''}" data-difficulty="쉬움">쉬움</button></div>
+      <div class="section-head"><h2>검색 결과 <small>(${results.length})</small></h2></div><div id="recipe-results">${results.length ? `<div class="recipe-grid">${results.map(recipeCard).join('')}</div>` : `<div class="empty"><span class="emoji">🔍</span><h2>조건에 맞는 간식을 찾지 못했어요.</h2><p>조건을 조금 줄여볼까요?</p><button class="button secondary" id="clear-filters">필터 초기화</button></div>`}</div></section>`;
     $('#recipe-search').addEventListener('input', window.TC.debounce(e => { recipeFilter.query = e.target.value; recipesView(); $('#recipe-search')?.focus(); }, 180));
     $$('.category').forEach(b => b.addEventListener('click', () => { recipeFilter.category = b.dataset.category; recipesView(); }));
     $$('.time').forEach(b => b.addEventListener('click', () => { const t=Number(b.dataset.time); recipeFilter.time = recipeFilter.time===t?0:t; recipesView(); }));
@@ -54,7 +55,7 @@
   }
 
   function detailView(recipe) {
-    app.innerHTML = `<a class="back-link" href="#/recipes">← 요리 목록</a><div class="detail-image">${image(recipe)}</div><section class="detail-header"><h1>${escapeHtml(recipe.name)}</h1><p class="muted">${escapeHtml(recipe.description)}</p>${meta(recipe)}<div class="actions detail-actions"><button class="button secondary" id="speak-full">🔊 전체 듣기</button><button class="button secondary" id="add-shopping">🛒 장보기 추가</button><a class="button green" href="#/cook/${recipe.id}">▶ 간식 만들기</a></div></section>
+    app.innerHTML = `<a class="back-link" href="#/recipes">← 간식 목록</a><div class="detail-image">${image(recipe)}</div><section class="detail-header"><h1>${escapeHtml(recipe.name)}</h1><p class="muted">${escapeHtml(recipe.description)}</p>${meta(recipe)}<div class="actions detail-actions"><button class="button secondary" id="speak-full">🔊 전체 듣기</button><button class="button secondary" id="add-shopping">🛒 장보기 추가</button><a class="button green" href="#/cook/${recipe.id}">▶ 간식 만들기</a></div></section>
       <section class="section"><h2>재료</h2><ul class="ingredient-list">${recipe.ingredients.map((item,i)=>`<li class="check-row"><input type="checkbox" id="ingredient-${i}"><label for="ingredient-${i}">${escapeHtml(item.name)}${item.optional?' <small>(선택)</small>':''}</label><span class="amount">${escapeHtml(item.amount)}</span></li>`).join('')}</ul></section>
       <section class="section"><h2>조리순서</h2><ol class="step-list">${recipe.steps.map(step=>`<li class="step-card"><span class="step-num">${step.order}</span><div><p>${escapeHtml(step.text)}</p>${step.tip?`<p class="tip">💡 ${escapeHtml(step.tip)}</p>`:''}</div></li>`).join('')}</ol></section>`;
     $('#speak-full').addEventListener('click', () => window.TodayCookSpeech.speak(window.TodayCookSpeech.recipeText(recipe)));
@@ -132,7 +133,7 @@
     else if (route.name === 'ingredients') ingredientsView();
     else if (route.name === 'recipe' || route.name === 'cook') {
       const recipe = recipes.find(r=>r.id===route.id);
-      if (!recipe) { app.innerHTML='<div class="empty"><span class="emoji">🍳</span><h1>레시피를 찾지 못했어요.</h1><a class="button" href="#/recipes">요리 목록으로</a></div>'; return; }
+      if (!recipe) { app.innerHTML='<div class="empty"><span class="emoji">🍳</span><h1>간식 레시피를 찾지 못했어요.</h1><a class="button" href="#/recipes">간식 목록으로</a></div>'; return; }
       route.name === 'recipe' ? detailView(recipe) : cookView(recipe);
     } else location.hash='#/home';
     app.focus({preventScroll:true});
