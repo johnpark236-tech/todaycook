@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data" / "recipes-fallback.json"
 OUT = ROOT / "assets" / "audio"
 MODEL_CACHE = ROOT / ".cache" / "ppaso-tts-v1"
+ORDINALS = ["첫번째","두번째","세번째","네번째","다섯번째","여섯번째","일곱번째","여덟번째","아홉번째","열번째","열한번째","열두번째"]
 
 def normalize(text: str) -> str:
     text = str(text or "")
@@ -31,8 +32,11 @@ def normalize(text: str) -> str:
         text = re.sub(pattern, repl, text, flags=re.I)
     return re.sub(r"\s+", " ", text).strip()
 
+def ordinal(index):
+    return ORDINALS[index] if index < len(ORDINALS) else f"{index + 1}번째"
+
 def step_text(step, index):
-    parts = [f"{index + 1}번째 단계입니다.", step["text"]]
+    parts = [f"{ordinal(index)} 단계입니다.", step["text"]]
     if step.get("tip"):
         parts.append(f"팁입니다. {step['tip']}")
     return normalize(" ".join(parts))
@@ -63,6 +67,7 @@ def synth_to_mp3(tts, text, target):
     subprocess.run([
         "ffmpeg", "-y", "-loglevel", "error",
         "-i", str(wav_path),
+        "-af", "asetrate=22050*0.88,aresample=22050,atempo=1.13636",
         "-codec:a", "libmp3lame", "-b:a", "64k",
         str(target)
     ], check=True)
@@ -74,7 +79,7 @@ def main():
     OUT.mkdir(parents=True, exist_ok=True)
     tts = ensure_model()
 
-    manifest = {"version": 1, "recipes": {}}
+    manifest = {"version": 2, "voice": "low", "recipes": {}}
     for recipe in recipes:
         rid = recipe["id"]
         rdir = OUT / rid
@@ -93,7 +98,7 @@ def main():
         json.dumps(manifest, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8"
     )
-    print(f"Generated static TTS for {len(recipes)} recipes.")
+    print(f"Generated low-pitch static TTS for {len(recipes)} recipes.")
 
 if __name__ == "__main__":
     main()
