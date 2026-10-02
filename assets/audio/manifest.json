@@ -1,6 +1,6 @@
 {
-  "version": 2,
-  "voice": "low",
+  "version": 3,
+  "voice": "younger-brother",
   "recipes": {
     "kimchi-jjigae": {
       "steps": [
