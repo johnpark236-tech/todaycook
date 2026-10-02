@@ -8,7 +8,7 @@
   let selectedIngredients = new Set();
   let cookStep = 0;
 
-  const recipeCard = recipe => `<a class="recipe-card" href="#/recipe/${recipe.id}"><div>${image(recipe)}</div><div class="card-body"><h3>${escapeHtml(recipe.name)}</h3><div class="card-meta"><span>⏱ ${recipe.timeMinutes}분</span><span>${escapeHtml(recipe.difficulty)}</span></div></div></a>`;
+  const recipeCard = recipe => `<a class="recipe-card" href="#/recipe/${recipe.id}"><div class="recipe-thumb">${image(recipe)}</div><div class="card-body"><h3>${escapeHtml(recipe.name)}</h3><div class="card-meta"><span>⏱ ${recipe.timeMinutes}분</span><span>${escapeHtml(recipe.difficulty)}</span></div></div></a>`;
 
   function homeView() {
     recommendation ||= recipes[Math.floor(Math.random() * recipes.length)];
@@ -61,12 +61,54 @@
     $('#add-shopping').addEventListener('click', () => { const count = window.TodayCookShopping.addRecipe(recipe); toast(count ? `${count}개 재료를 장보기에 담았어요.` : '이미 장보기 목록에 있어요.'); });
   }
 
+  function syncSpeechControls(detail = {}) {
+    const mainButton = $('#speak-step');
+    if (!mainButton) return;
+    const state = detail.state || window.TodayCookSpeech.state;
+    const pauseButton = $('#pause-speech');
+    const replayButton = $('#replay-speech');
+
+    if (state === 'playing') mainButton.textContent = '■ 음성 중지';
+    else if (state === 'paused') mainButton.textContent = '▶ 계속 듣기';
+    else mainButton.textContent = '🔊 현재 단계 듣기';
+
+    if (pauseButton) {
+      pauseButton.disabled = !(state === 'playing' || state === 'paused');
+      pauseButton.textContent = state === 'paused' ? '▶ 계속 듣기' : '⏸ 일시정지';
+    }
+    if (replayButton) replayButton.disabled = detail.hasReplay === false;
+  }
+
   function cookView(recipe) {
     const step = recipe.steps[cookStep];
-    app.innerHTML = `<section class="cook-screen"><a class="back-link" href="#/recipe/${recipe.id}">← ${escapeHtml(recipe.name)}</a><p class="progress-label">${cookStep+1} / ${recipe.steps.length} 단계</p><div class="progress" aria-label="조리 진행률"><span style="width:${((cookStep+1)/recipe.steps.length)*100}%"></span></div><article class="cook-card"><h1>${escapeHtml(step.text)}</h1>${step.tip?`<p class="cook-tip">💡 ${escapeHtml(step.tip)}</p>`:''}</article><div class="cook-controls"><button id="prev" ${cookStep===0?'disabled':''}>← 이전</button><button class="speak" id="speak-step">🔊 읽기</button><button id="next">${cookStep===recipe.steps.length-1?'완료':'다음 →'}</button></div></section>`;
-    $('#prev').addEventListener('click', () => { window.TodayCookSpeech.cancel(); if (cookStep>0) { cookStep--; cookView(recipe); } });
-    $('#next').addEventListener('click', () => { window.TodayCookSpeech.cancel(); if (cookStep<recipe.steps.length-1) { cookStep++; cookView(recipe); } else { toast('맛있는 요리가 완성됐어요!'); location.hash=`#/recipe/${recipe.id}`; } });
-    $('#speak-step').addEventListener('click', () => { if (window.TodayCookSpeech.speaking) window.TodayCookSpeech.cancel(); else window.TodayCookSpeech.speak(`${cookStep+1}번째 단계입니다. ${step.text} ${step.tip || ''}`); });
+    app.innerHTML = `<section class="cook-screen"><a class="back-link" href="#/recipe/${recipe.id}">← ${escapeHtml(recipe.name)}</a><p class="progress-label">${cookStep+1} / ${recipe.steps.length} 단계</p><div class="progress" aria-label="조리 진행률"><span style="width:${((cookStep+1)/recipe.steps.length)*100}%"></span></div><article class="cook-card"><h1>${escapeHtml(step.text)}</h1>${step.tip?`<p class="cook-tip">💡 ${escapeHtml(step.tip)}</p>`:''}</article><div class="voice-panel"><button class="voice-primary" id="speak-step" type="button">🔊 현재 단계 듣기</button><div class="voice-secondary"><button id="pause-speech" type="button" disabled>⏸ 일시정지</button><button id="replay-speech" type="button">↻ 다시 듣기</button><button id="speak-recipe" type="button">🔊 전체 레시피</button></div></div><div class="cook-controls"><button id="prev" ${cookStep===0?'disabled':''}>← 이전</button><button id="next">${cookStep===recipe.steps.length-1?'완료':'다음 →'}</button></div></section>`;
+
+    $('#prev').addEventListener('click', () => {
+      window.TodayCookSpeech.cancel();
+      if (cookStep > 0) { cookStep--; cookView(recipe); }
+    });
+
+    $('#next').addEventListener('click', () => {
+      window.TodayCookSpeech.cancel();
+      if (cookStep < recipe.steps.length - 1) { cookStep++; cookView(recipe); }
+      else { toast('맛있는 요리가 완성됐어요!'); location.hash = `#/recipe/${recipe.id}`; }
+    });
+
+    $('#speak-step').addEventListener('click', () => {
+      const state = window.TodayCookSpeech.state;
+      if (state === 'playing') window.TodayCookSpeech.cancel();
+      else if (state === 'paused') window.TodayCookSpeech.resume();
+      else window.TodayCookSpeech.speak(window.TodayCookSpeech.stepText(step, cookStep));
+    });
+
+    $('#pause-speech').addEventListener('click', () => {
+      if (window.TodayCookSpeech.state === 'paused') window.TodayCookSpeech.resume();
+      else window.TodayCookSpeech.pause();
+    });
+
+    $('#replay-speech').addEventListener('click', () => window.TodayCookSpeech.replay());
+    $('#speak-recipe').addEventListener('click', () => window.TodayCookSpeech.speak(window.TodayCookSpeech.recipeText(recipe)));
+    syncSpeechControls({ state: window.TodayCookSpeech.state, hasReplay: false });
   }
 
   function shoppingView() {
@@ -110,6 +152,7 @@
   }
 
   $('#surprise-button').addEventListener('click',()=>{recommendation=shuffle(recipes)[0];location.hash=`#/recipe/${recommendation.id}`;});
+  document.addEventListener('todaycook:speech', event => syncSpeechControls(event.detail || {}));
   window.addEventListener('hashchange',()=>render().catch(showError));
   function showError(error){console.error(error);app.innerHTML='<div class="empty"><span class="emoji">😥</span><h1>요리 정보를 불러오지 못했어요.</h1><p>잠시 후 다시 시도해 주세요.</p><button class="button" onclick="location.reload()">다시 시도</button></div>';}
   render().catch(showError).finally(()=>setTimeout(()=>$('#splash').classList.add('hide'),850));
