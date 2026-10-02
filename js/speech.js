@@ -1,7 +1,8 @@
 (function () {
   const config = window.TODAYCOOK_CONFIG;
   const MEMORY_CACHE_MAX = 24;
-  const CACHE_NAME = 'todaycook-google-tts-v2';
+  const CACHE_NAME = 'todaycook-google-tts-v3';
+  const REPEAT_LIMIT = 10;
   const ORDINALS = ['첫번째','두번째','세번째','네번째','다섯번째','여섯번째','일곱번째','여덟번째','아홉번째','열번째','열한번째','열두번째'];
 
   const memoryCache = new Map();
@@ -13,8 +14,12 @@
   let nativeUtterance = null;
   let nativeMode = false;
   let repeatMode = false;
+  let repeatTarget = 1;
+  let repeatCurrent = 0;
+  let repeatKind = 'step';
+  let repeatCompleteHandler = null;
 
-  function dispatch() {
+  function dispatch(extra = {}) {
     document.dispatchEvent(new CustomEvent('todaycook:speech', {
       detail: {
         state,
@@ -23,7 +28,11 @@
         loading: state === 'loading',
         hasReplay: Boolean(lastAudioUrl || lastText),
         repeating: repeatMode,
-        text: lastText
+        repeatCurrent,
+        repeatTarget,
+        repeatKind,
+        text: lastText,
+        ...extra
       }
     }));
   }
@@ -48,6 +57,32 @@
       .trim();
   }
 
+  function casualize(text) {
+    return normalize(text)
+      .replace(/해\s*주세요/g, '해줘')
+      .replace(/해주세요/g, '해줘')
+      .replace(/주세요/g, '줘')
+      .replace(/드세요/g, '먹어봐')
+      .replace(/보세요/g, '봐')
+      .replace(/하세요/g, '해줘')
+      .replace(/됩니다/g, '돼')
+      .replace(/돼요/g, '돼')
+      .replace(/있습니다/g, '있어')
+      .replace(/있어요/g, '있어')
+      .replace(/없습니다/g, '없어')
+      .replace(/없어요/g, '없어')
+      .replace(/좋습니다/g, '좋아')
+      .replace(/좋아요/g, '좋아')
+      .replace(/않아요/g, '않아')
+      .replace(/마세요/g, '마')
+      .replace(/입니다/g, '이야')
+      .replace(/이에요/g, '이야')
+      .replace(/예요/g, '야')
+      .replace(/합니다/g, '해')
+      .replace(/합니다/g, '해')
+      .replace(/\.\s*$/g, '.');
+  }
+
   function ordinal(index) {
     return ORDINALS[index] || `${index + 1}번째`;
   }
@@ -68,8 +103,8 @@
   async function hashText(text) {
     const raw = [
       config.TTS_VOICE || 'ko-KR-Neural2-C',
-      Number(config.TTS_RATE || 0.90).toFixed(2),
-      Number(config.TTS_PITCH ?? -4.0).toFixed(1),
+      Number(config.TTS_RATE || 0.96).toFixed(2),
+      Number(config.TTS_PITCH ?? -1.5).toFixed(1),
       text
     ].join('|');
 
@@ -135,9 +170,7 @@
       const oldestKey = memoryCache.keys().next().value;
       const oldestUrl = memoryCache.get(oldestKey);
       memoryCache.delete(oldestKey);
-      if (oldestUrl && oldestUrl !== lastAudioUrl && oldestUrl.startsWith('blob:')) {
-        URL.revokeObjectURL(oldestUrl);
-      }
+      if (oldestUrl && oldestUrl !== lastAudioUrl && oldestUrl.startsWith('blob:')) URL.revokeObjectURL(oldestUrl);
     }
   }
 
@@ -156,7 +189,6 @@
       if (sessionStorage.getItem(key) === '1') return;
       sessionStorage.setItem(key, '1');
     } catch (_) {}
-
     const message = usage.warningMessage ||
       `TTS 운영 기준 ${threshold.toLocaleString()}회에 도달했습니다. 서비스는 계속 실행됩니다. 지속 사용 시 Google Cloud 실제 문자 사용량을 확인하고 유료 사용 준비가 필요합니다.`;
     window.alert(`${message}\n\n※ 실제 Google Cloud TTS 과금 기준은 호출 횟수가 아니라 합성 문자 수입니다.`);
@@ -186,13 +218,12 @@
         body: JSON.stringify({
           text: normalized,
           voice: config.TTS_VOICE || 'ko-KR-Neural2-C',
-          rate: Number(config.TTS_RATE || 0.90),
-          pitch: Number(config.TTS_PITCH ?? -4.0)
+          rate: Number(config.TTS_RATE || 0.96),
+          pitch: Number(config.TTS_PITCH ?? -1.5)
         }),
         signal: controller.signal,
         cache: 'no-store'
       });
-
       const payload = await response.json().catch(() => ({}));
       if (!response.ok || !payload.ok || !payload.data?.audioContent) {
         throw new Error(payload.detail || payload.error || `TTS_HTTP_${response.status}`);
@@ -209,21 +240,60 @@
     }
   }
 
+  function finishRepeat() {
+    const handler = repeatCompleteHandler;
+    const kind = repeatKind;
+    const completed = repeatCurrent;
+    repeatMode = false;
+    repeatTarget = 1;
+    repeatCurrent = 0;
+    repeatKind = 'step';
+    repeatCompleteHandler = null;
+    setState('idle');
+    dispatch({ repeatFinished: true, completedRepeats: completed, completedKind: kind });
+    if (typeof handler === 'function') setTimeout(handler, 0);
+  }
+
+  function handleAudioEnded(token) {
+    if (token !== playToken) return;
+    if (!repeatMode) {
+      setState('idle');
+      return;
+    }
+
+    repeatCurrent += 1;
+    dispatch();
+
+    if (repeatCurrent >= repeatTarget) {
+      finishRepeat();
+      return;
+    }
+
+    audio.currentTime = 0;
+    setTimeout(() => {
+      if (token !== playToken || !repeatMode || !audio) return;
+      audio.play().catch(error => {
+        console.error('Repeat playback failed:', error);
+        finishRepeat();
+      });
+    }, 180);
+  }
+
   function bindAudio(url, token) {
     audio?.pause();
     audio = new Audio(url);
     audio.preload = 'auto';
-    audio.loop = repeatMode;
+    audio.loop = false;
     audio.onplay = () => { if (token === playToken) setState('playing'); };
     audio.onpause = () => {
       if (token !== playToken || state === 'idle' || audio.ended) return;
       setState('paused');
     };
-    audio.onended = () => { if (token === playToken) setState('idle'); };
+    audio.onended = () => handleAudioEnded(token);
     audio.onerror = () => {
       if (token !== playToken) return;
       setState('idle');
-      window.TC.toast('음성 재생을 다시 눌러주세요.');
+      window.TC.toast('음성 재생을 다시 눌러줘, 형아.');
     };
   }
 
@@ -234,24 +304,31 @@
       nativeMode = true;
       nativeUtterance = new SpeechSynthesisUtterance(text);
       nativeUtterance.lang = 'ko-KR';
-      nativeUtterance.rate = 0.90;
-      nativeUtterance.pitch = 0.72;
+      nativeUtterance.rate = 0.96;
+      nativeUtterance.pitch = 0.92;
       nativeUtterance.volume = 1;
       const voice = pickKoreanVoice();
       if (voice) nativeUtterance.voice = voice;
-
       nativeUtterance.onstart = () => { if (token === playToken) setState('playing'); };
       nativeUtterance.onpause = () => { if (token === playToken) setState('paused'); };
       nativeUtterance.onresume = () => { if (token === playToken) setState('playing'); };
       nativeUtterance.onend = () => {
         if (token !== playToken) return;
         nativeUtterance = null;
+
         if (repeatMode) {
+          repeatCurrent += 1;
+          dispatch();
+          if (repeatCurrent >= repeatTarget) {
+            finishRepeat();
+            return;
+          }
           setTimeout(() => {
             if (token === playToken && repeatMode) speakNative(text, token);
           }, 180);
           return;
         }
+
         nativeMode = false;
         setState('idle');
       };
@@ -261,7 +338,6 @@
         nativeMode = false;
         setState('idle');
       };
-
       window.speechSynthesis.speak(nativeUtterance);
       setState('playing');
       return true;
@@ -273,31 +349,11 @@
     }
   }
 
-  async function playUrl(url, text) {
-    const token = ++playToken;
-    lastText = normalize(text);
-    lastAudioUrl = url;
-    nativeMode = false;
-    bindAudio(url, token);
-    await audio.play();
-    return true;
-  }
-
-  async function playStaticAudio(path, text) {
-    if (!path) return false;
-    try {
-      return await playUrl(path, text);
-    } catch (error) {
-      console.warn('Static audio fallback failed:', error);
-      return false;
-    }
-  }
-
   async function speakWithFallback(text, staticPath = '') {
     const normalized = normalize(text);
     if (!normalized || !config.SPEECH_ENABLED) return false;
 
-    cancel({ keepLast: true });
+    cancel({ keepLast: true, keepRepeat: true });
     const token = ++playToken;
     lastText = normalized;
     lastAudioUrl = '';
@@ -328,7 +384,7 @@
 
       if (speakNative(normalized, token)) return true;
       setState('idle');
-      window.TC.toast('음성 연결을 확인해주세요.');
+      window.TC.toast('음성 연결을 확인해줘, 형아.');
       return false;
     }
   }
@@ -351,9 +407,12 @@
     );
   }
 
-  function setRepeat(enabled) {
+  function setRepeat(enabled, count = REPEAT_LIMIT, onComplete = null, kind = 'step') {
     repeatMode = Boolean(enabled);
-    if (audio) audio.loop = repeatMode;
+    repeatTarget = repeatMode ? Math.max(1, Math.min(REPEAT_LIMIT, Number(count) || REPEAT_LIMIT)) : 1;
+    repeatCurrent = 0;
+    repeatKind = repeatMode ? kind : 'step';
+    repeatCompleteHandler = repeatMode && typeof onComplete === 'function' ? onComplete : null;
     dispatch();
     return repeatMode;
   }
@@ -383,7 +442,7 @@
       return true;
     } catch (error) {
       console.error('TTS resume error:', error);
-      window.TC.toast('음성 재생을 다시 눌러주세요.');
+      window.TC.toast('음성 재생을 다시 눌러줘, 형아.');
       return false;
     }
   }
@@ -403,7 +462,7 @@
     }
   }
 
-  function cancel({ keepLast = true } = {}) {
+  function cancel({ keepLast = true, keepRepeat = false } = {}) {
     playToken += 1;
     if (nativeSupported()) window.speechSynthesis.cancel();
     nativeUtterance = null;
@@ -418,19 +477,27 @@
       lastText = '';
       lastAudioUrl = '';
     }
+    if (!keepRepeat) {
+      repeatMode = false;
+      repeatTarget = 1;
+      repeatCurrent = 0;
+      repeatKind = 'step';
+      repeatCompleteHandler = null;
+    }
     setState('idle');
   }
 
   function stepText(step, index) {
-    const parts = [`${ordinal(index)} 단계입니다.`, step.text];
-    if (step.tip) parts.push(`팁입니다. ${step.tip}`);
-    return parts.join(' ');
+    const parts = [`형아, ${ordinal(index)} 단계야.`, casualize(step.text)];
+    if (step.tip) parts.push(casualize(step.tip));
+    return parts.filter(Boolean).join(' ');
   }
 
   function recipeText(recipe) {
     const ingredients = recipe.ingredients.map(item => `${item.name} ${item.amount}`).join(', ');
     const steps = recipe.steps.map((step, index) => stepText(step, index)).join(' ');
-    return `${recipe.name} 레시피입니다. ${recipe.description || ''} 필요한 재료는 ${ingredients}입니다. ${steps}`;
+    const description = recipe.description ? casualize(recipe.description) : '';
+    return `형아, 오늘은 ${recipe.name} 같이 만들어보자. ${description} 필요한 재료는 ${ingredients} 정도야. ${steps} 다 했으면 맛있게 먹자, 형아.`;
   }
 
   window.addEventListener('hashchange', () => {
@@ -452,11 +519,15 @@
     replay,
     setRepeat,
     cancel,
+    casualize,
     stepText,
     recipeText,
+    REPEAT_LIMIT,
     get state() { return state; },
     get speaking() { return state === 'playing'; },
     get paused() { return state === 'paused'; },
-    get repeating() { return repeatMode; }
+    get repeating() { return repeatMode; },
+    get repeatCurrent() { return repeatCurrent; },
+    get repeatTarget() { return repeatTarget; }
   };
 })();
