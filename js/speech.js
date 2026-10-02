@@ -2,6 +2,7 @@
   const config = window.TODAYCOOK_CONFIG;
   const memoryCache = new Map();
   const MAX_CACHE_ITEMS = 12;
+  const ORDINALS = ['첫번째','두번째','세번째','네번째','다섯번째','여섯번째','일곱번째','여덟번째','아홉번째','열번째','열한번째','열두번째'];
   let audio = null;
   let requestController = null;
   let state = 'idle';
@@ -20,7 +21,8 @@
         paused: state === 'paused',
         loading: state === 'loading',
         hasReplay: Boolean(lastAudioUrl || lastText),
-        repeating: repeatMode
+        repeating: repeatMode,
+        text: lastText
       }
     }));
   }
@@ -45,6 +47,10 @@
       .trim();
   }
 
+  function ordinal(index) {
+    return ORDINALS[index] || `${index + 1}번째`;
+  }
+
   function endpoint() {
     const base = String(config.TTS_API_URL || config.API_URL || '').replace(/\/+$/, '');
     if (!base) return '';
@@ -62,7 +68,7 @@
     const oldestKey = memoryCache.keys().next().value;
     const oldestUrl = memoryCache.get(oldestKey);
     memoryCache.delete(oldestKey);
-    if (oldestUrl && oldestUrl !== lastAudioUrl) URL.revokeObjectURL(oldestUrl);
+    if (oldestUrl && oldestUrl !== lastAudioUrl && oldestUrl.startsWith('blob:')) URL.revokeObjectURL(oldestUrl);
   }
 
   function audioUrlFromBase64(audioContent, mimeType = 'audio/mpeg') {
@@ -108,7 +114,8 @@
   function pickKoreanVoice() {
     if (!nativeSupported()) return null;
     const voices = window.speechSynthesis.getVoices();
-    return voices.find(v => /^ko-KR$/i.test(v.lang))
+    return voices.find(v => /^ko-KR$/i.test(v.lang) && /male|남성/i.test(v.name))
+      || voices.find(v => /^ko-KR$/i.test(v.lang))
       || voices.find(v => /^ko/i.test(v.lang))
       || null;
   }
@@ -120,8 +127,8 @@
       nativeMode = true;
       nativeUtterance = new SpeechSynthesisUtterance(text);
       nativeUtterance.lang = 'ko-KR';
-      nativeUtterance.rate = 0.94;
-      nativeUtterance.pitch = 1;
+      nativeUtterance.rate = 0.90;
+      nativeUtterance.pitch = 0.72;
       nativeUtterance.volume = 1;
       const voice = pickKoreanVoice();
       if (voice) nativeUtterance.voice = voice;
@@ -173,7 +180,7 @@
     audio.onerror = () => {
       if (token !== playToken) return;
       setState('idle');
-      window.TC.toast('음성 연결을 확인해주세요.');
+      window.TC.toast('음성 재생을 다시 눌러주세요.');
     };
   }
 
@@ -216,15 +223,6 @@
       lastAudioUrl = '';
       return normalized ? speak(normalized) : false;
     }
-  }
-
-  function speakStep(recipe, index) {
-    const text = stepText(recipe.steps[index], index);
-    return playStaticAudio(`assets/audio/${recipe.id}/step-${index + 1}.mp3`, text);
-  }
-
-  function speakRecipe(recipe) {
-    return playStaticAudio(`assets/audio/${recipe.id}/full.mp3`, recipeText(recipe));
   }
 
   async function speak(text) {
@@ -335,7 +333,7 @@
   }
 
   function stepText(step, index) {
-    const parts = [`${index + 1}번째 단계입니다.`, step.text];
+    const parts = [`${ordinal(index)} 단계입니다.`, step.text];
     if (step.tip) parts.push(`팁입니다. ${step.tip}`);
     return parts.join(' ');
   }
@@ -346,10 +344,19 @@
     return `${recipe.name} 레시피입니다. ${recipe.description || ''} 필요한 재료는 ${ingredients}입니다. ${steps}`;
   }
 
+  function speakStep(recipe, index) {
+    return playStaticAudio(`assets/audio/${recipe.id}/step-${index + 1}.mp3`, stepText(recipe.steps[index], index));
+  }
+
+  function speakRecipe(recipe) {
+    return playStaticAudio(`assets/audio/${recipe.id}/full.mp3`, recipeText(recipe));
+  }
+
   window.addEventListener('hashchange', () => { setRepeat(false); cancel({ keepLast: false }); });
   window.addEventListener('pagehide', () => { setRepeat(false); cancel({ keepLast: false }); });
+
   window.TodayCookSpeech = {
-    supported: Boolean(endpoint() || nativeSupported()),
+    supported: true,
     speak,
     speakStep,
     speakRecipe,
