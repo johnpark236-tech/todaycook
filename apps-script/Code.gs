@@ -3,7 +3,7 @@ const TODAYCOOK_SHEET_NAMES = Object.freeze({
   RECIPES: 'Recipes', INGREDIENTS: 'Ingredients', SETTINGS: 'Settings'
 });
 const TODAYCOOK_TTS_DEFAULTS = Object.freeze({
-  LANGUAGE: 'ko-KR', VOICE: 'ko-KR-Neural2-A', RATE: 0.94, MAX_UTF8_BYTES: 4500
+  LANGUAGE: 'ko-KR', VOICE: 'ko-KR-Neural2-C', RATE: 0.90, PITCH: -4.0, MAX_UTF8_BYTES: 4500
 });
 
 function doGet(e) {
@@ -48,17 +48,18 @@ function synthesizeSpeech_(body) {
   const props = PropertiesService.getScriptProperties();
   const voice = props.getProperty('TODAYCOOK_TTS_VOICE') || TODAYCOOK_TTS_DEFAULTS.VOICE;
   const rate = Number(props.getProperty('TODAYCOOK_TTS_RATE') || TODAYCOOK_TTS_DEFAULTS.RATE);
-  const cacheKey = 'tts:' + sha256_(voice + '|' + rate + '|' + text);
+  const pitch = Number(props.getProperty('TODAYCOOK_TTS_PITCH') || TODAYCOOK_TTS_DEFAULTS.PITCH);
+  const cacheKey = 'tts:' + sha256_(voice + '|' + rate + '|' + pitch + '|' + text);
   const cache = CacheService.getScriptCache();
   const cached = cache.get(cacheKey);
-  if (cached) return { audioContent: cached, mimeType: 'audio/mpeg', voice: voice, rate: rate, cached: true };
+  if (cached) return { audioContent: cached, mimeType: 'audio/mpeg', voice: voice, rate: rate, pitch: pitch, cached: true };
 
   enforceTtsDailyLimit_(text, props);
 
   const requestBody = {
     input: { text: text },
-    voice: { languageCode: TODAYCOOK_TTS_DEFAULTS.LANGUAGE, name: voice, ssmlGender: 'FEMALE' },
-    audioConfig: { audioEncoding: 'MP3', speakingRate: rate }
+    voice: { languageCode: TODAYCOOK_TTS_DEFAULTS.LANGUAGE, name: voice, ssmlGender: 'MALE' },
+    audioConfig: { audioEncoding: 'MP3', speakingRate: rate, pitch: pitch }
   };
   const headers = { Authorization: 'Bearer ' + ScriptApp.getOAuthToken() };
   const projectId = props.getProperty('TODAYCOOK_GCP_PROJECT_ID');
@@ -79,7 +80,7 @@ function synthesizeSpeech_(body) {
   }
 
   if (payload.audioContent.length < 90000) cache.put(cacheKey, payload.audioContent, 21600);
-  return { audioContent: payload.audioContent, mimeType: 'audio/mpeg', voice: voice, rate: rate, cached: false };
+  return { audioContent: payload.audioContent, mimeType: 'audio/mpeg', voice: voice, rate: rate, pitch: pitch, cached: false };
 }
 
 
