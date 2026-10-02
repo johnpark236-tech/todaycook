@@ -10,6 +10,7 @@
   let playToken = 0;
   let nativeUtterance = null;
   let nativeMode = false;
+  let repeatMode = false;
 
   function dispatch() {
     document.dispatchEvent(new CustomEvent('todaycook:speech', {
@@ -18,7 +19,8 @@
         speaking: state === 'playing',
         paused: state === 'paused',
         loading: state === 'loading',
-        hasReplay: Boolean(lastAudioUrl || lastText)
+        hasReplay: Boolean(lastAudioUrl || lastText),
+        repeating: repeatMode
       }
     }));
   }
@@ -129,6 +131,12 @@
       nativeUtterance.onend = () => {
         if (token !== playToken) return;
         nativeUtterance = null;
+        if (repeatMode) {
+          setTimeout(() => {
+            if (token === playToken && repeatMode) speakNative(text, token);
+          }, 180);
+          return;
+        }
         nativeMode = false;
         setState('idle');
       };
@@ -155,6 +163,7 @@
     audio?.pause();
     audio = new Audio(url);
     audio.preload = 'auto';
+    audio.loop = repeatMode;
     audio.onplay = () => { if (token === playToken) setState('playing'); };
     audio.onpause = () => {
       if (token !== playToken || state === 'idle' || audio.ended) return;
@@ -179,6 +188,7 @@
 
     audio = new Audio(path);
     audio.preload = 'auto';
+    audio.loop = repeatMode;
     audio.onplay = () => { if (token === playToken) setState('playing'); };
     audio.onpause = () => {
       if (token !== playToken || state === 'idle' || audio.ended) return;
@@ -251,6 +261,13 @@
       window.TC.toast('음성 재생을 다시 눌러주세요.');
       return false;
     }
+  }
+
+  function setRepeat(enabled) {
+    repeatMode = Boolean(enabled);
+    if (audio) audio.loop = repeatMode;
+    dispatch();
+    return repeatMode;
   }
 
   function pause() {
@@ -329,8 +346,8 @@
     return `${recipe.name} 레시피입니다. ${recipe.description || ''} 필요한 재료는 ${ingredients}입니다. ${steps}`;
   }
 
-  window.addEventListener('hashchange', () => cancel({ keepLast: false }));
-  window.addEventListener('pagehide', () => cancel({ keepLast: false }));
+  window.addEventListener('hashchange', () => { setRepeat(false); cancel({ keepLast: false }); });
+  window.addEventListener('pagehide', () => { setRepeat(false); cancel({ keepLast: false }); });
   window.TodayCookSpeech = {
     supported: Boolean(endpoint() || nativeSupported()),
     speak,
@@ -339,11 +356,13 @@
     pause,
     resume,
     replay,
+    setRepeat,
     cancel,
     stepText,
     recipeText,
     get state() { return state; },
     get speaking() { return state === 'playing'; },
-    get paused() { return state === 'paused'; }
+    get paused() { return state === 'paused'; },
+    get repeating() { return repeatMode; }
   };
 })();
