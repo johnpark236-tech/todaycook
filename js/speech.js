@@ -108,9 +108,9 @@
 
   async function hashText(text) {
     const raw = [
-      config.TTS_VOICE || 'ko-KR-Neural2-C',
-      Number(config.TTS_RATE || 0.96).toFixed(2),
-      Number(config.TTS_PITCH ?? -1.5).toFixed(1),
+      config.TTS_VOICE || 'ko-KR-Neural2-A',
+      Number(config.TTS_RATE || 1.03).toFixed(2),
+      Number(config.TTS_PITCH ?? 4.0).toFixed(1),
       text
     ].join('|');
 
@@ -223,9 +223,9 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           text: normalized,
-          voice: config.TTS_VOICE || 'ko-KR-Neural2-C',
-          rate: Number(config.TTS_RATE || 0.96),
-          pitch: Number(config.TTS_PITCH ?? -1.5)
+          voice: config.TTS_VOICE || 'ko-KR-Neural2-A',
+          rate: Number(config.TTS_RATE || 1.03),
+          pitch: Number(config.TTS_PITCH ?? 4.0)
         }),
         signal: controller.signal,
         cache: 'no-store'
@@ -310,8 +310,8 @@
       nativeMode = true;
       nativeUtterance = new SpeechSynthesisUtterance(text);
       nativeUtterance.lang = 'ko-KR';
-      nativeUtterance.rate = 0.96;
-      nativeUtterance.pitch = 0.92;
+      nativeUtterance.rate = 1.03;
+      nativeUtterance.pitch = 1.35;
       nativeUtterance.volume = 1;
       const voice = pickKoreanVoice();
       if (voice) nativeUtterance.voice = voice;
