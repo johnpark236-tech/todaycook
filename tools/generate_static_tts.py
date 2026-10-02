@@ -32,19 +32,48 @@ def normalize(text: str) -> str:
         text = re.sub(pattern, repl, text, flags=re.I)
     return re.sub(r"\s+", " ", text).strip()
 
+def casualize(text: str) -> str:
+    text = normalize(text)
+    replacements = [
+        ("해 주세요", "해줘"),
+        ("해주세요", "해줘"),
+        ("주세요", "줘"),
+        ("드세요", "먹어봐"),
+        ("보세요", "봐"),
+        ("하세요", "해줘"),
+        ("됩니다", "돼"),
+        ("돼요", "돼"),
+        ("있습니다", "있어"),
+        ("있어요", "있어"),
+        ("없습니다", "없어"),
+        ("없어요", "없어"),
+        ("좋습니다", "좋아"),
+        ("좋아요", "좋아"),
+        ("않아요", "않아"),
+        ("마세요", "마"),
+        ("입니다", "이야"),
+        ("이에요", "이야"),
+        ("예요", "야"),
+        ("합니다", "해"),
+    ]
+    for before, after in replacements:
+        text = text.replace(before, after)
+    return text
+
 def ordinal(index):
     return ORDINALS[index] if index < len(ORDINALS) else f"{index + 1}번째"
 
 def step_text(step, index):
-    parts = [f"{ordinal(index)} 단계입니다.", step["text"]]
+    parts = [f"형아, {ordinal(index)} 단계야.", casualize(step["text"])]
     if step.get("tip"):
-        parts.append(f"팁입니다. {step['tip']}")
-    return normalize(" ".join(parts))
+        parts.append(casualize(step["tip"]))
+    return normalize(" ".join(filter(None, parts)))
 
 def recipe_text(recipe):
     ingredients = ", ".join(f"{i['name']} {i['amount']}" for i in recipe["ingredients"])
     steps = " ".join(step_text(step, i) for i, step in enumerate(recipe["steps"]))
-    return normalize(f"{recipe['name']} 레시피입니다. {recipe.get('description','')} 필요한 재료는 {ingredients}입니다. {steps}")
+    description = casualize(recipe.get("description", ""))
+    return normalize(f"형아, 오늘은 {recipe['name']} 같이 만들어보자. {description} 필요한 재료는 {ingredients} 정도야. {steps} 다 했으면 맛있게 먹자, 형아.")
 
 def ensure_model():
     path = snapshot_download(
@@ -67,7 +96,7 @@ def synth_to_mp3(tts, text, target):
     subprocess.run([
         "ffmpeg", "-y", "-loglevel", "error",
         "-i", str(wav_path),
-        "-af", "asetrate=22050*0.88,aresample=22050,atempo=1.13636",
+        "-af", "asetrate=22050*1.03,aresample=22050,atempo=0.970874",
         "-codec:a", "libmp3lame", "-b:a", "64k",
         str(target)
     ], check=True)
@@ -79,7 +108,7 @@ def main():
     OUT.mkdir(parents=True, exist_ok=True)
     tts = ensure_model()
 
-    manifest = {"version": 2, "voice": "low", "recipes": {}}
+    manifest = {"version": 3, "voice": "younger-brother", "recipes": {}}
     for recipe in recipes:
         rid = recipe["id"]
         rdir = OUT / rid
@@ -98,7 +127,7 @@ def main():
         json.dumps(manifest, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8"
     )
-    print(f"Generated low-pitch static TTS for {len(recipes)} recipes.")
+    print(f"Generated younger-brother fallback TTS for {len(recipes)} recipes.")
 
 if __name__ == "__main__":
     main()
