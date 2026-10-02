@@ -168,6 +168,55 @@
     };
   }
 
+  async function playStaticAudio(path, fallbackText) {
+    const normalized = normalize(fallbackText);
+    cancel({ keepLast: true });
+    const token = ++playToken;
+    lastText = normalized;
+    lastAudioUrl = path;
+    nativeMode = false;
+    setState('loading');
+
+    audio = new Audio(path);
+    audio.preload = 'auto';
+    audio.onplay = () => { if (token === playToken) setState('playing'); };
+    audio.onpause = () => {
+      if (token !== playToken || state === 'idle' || audio.ended) return;
+      setState('paused');
+    };
+    audio.onended = () => { if (token === playToken) setState('idle'); };
+    audio.onerror = () => {
+      if (token !== playToken) return;
+      audio = null;
+      lastAudioUrl = '';
+      if (normalized) speak(normalized);
+      else {
+        setState('idle');
+        window.TC.toast('음성 재생을 다시 눌러주세요.');
+      }
+    };
+
+    try {
+      await audio.play();
+      return true;
+    } catch (error) {
+      if (token !== playToken) return false;
+      console.warn('Static recipe audio unavailable, using TTS fallback:', error);
+      audio = null;
+      lastAudioUrl = '';
+      return normalized ? speak(normalized) : false;
+    }
+  }
+
+  function speakStep(recipe, index) {
+    const text = stepText(recipe.steps[index], index);
+    return playStaticAudio(`assets/audio/${recipe.id}/step-${index + 1}.mp3`, text);
+  }
+
+  function speakRecipe(recipe) {
+    return playStaticAudio(`assets/audio/${recipe.id}/full.mp3`, recipeText(recipe));
+  }
+
   async function speak(text) {
     const normalized = normalize(text);
     if (!normalized || !config.SPEECH_ENABLED) return false;
@@ -285,6 +334,8 @@
   window.TodayCookSpeech = {
     supported: Boolean(endpoint() || nativeSupported()),
     speak,
+    speakStep,
+    speakRecipe,
     pause,
     resume,
     replay,
