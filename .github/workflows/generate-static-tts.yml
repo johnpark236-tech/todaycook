@@ -42,5 +42,6 @@ jobs:
             echo "No audio changes."
           else
             git commit -m "feat(tts): generate static Korean recipe audio"
+            git pull --rebase origin main
             git push
           fi
