@@ -54,11 +54,12 @@
   }
 
   function detailView(recipe) {
-    app.innerHTML = `<a class="back-link" href="#/recipes">← 요리 목록</a><div class="detail-image">${image(recipe)}</div><section class="detail-header"><h1>${escapeHtml(recipe.name)}</h1><p class="muted">${escapeHtml(recipe.description)}</p>${meta(recipe)}<div class="actions detail-actions"><button class="button secondary" id="speak-full">🔊 전체 듣기</button><button class="button secondary" id="add-shopping">🛒 장보기 추가</button><a class="button green" href="#/cook/${recipe.id}">▶ 요리 시작</a></div></section>
+    app.innerHTML = `<a class="back-link" href="#/recipes">← 요리 목록</a><div class="detail-image">${image(recipe)}</div><section class="detail-header"><h1>${escapeHtml(recipe.name)}</h1><p class="muted">${escapeHtml(recipe.description)}</p>${meta(recipe)}<div class="actions detail-actions"><button class="button secondary" id="speak-full">🔁 전체 10회 듣기</button><button class="button secondary" id="add-shopping">🛒 장보기 추가</button><a class="button green" href="#/cook/${recipe.id}">▶ 요리 시작</a></div></section>
       <section class="section"><h2>재료</h2><ul class="ingredient-list">${recipe.ingredients.map((item,i)=>`<li class="check-row"><input type="checkbox" id="ingredient-${i}"><label for="ingredient-${i}">${escapeHtml(item.name)}${item.optional?' <small>(선택)</small>':''}</label><span class="amount">${escapeHtml(item.amount)}</span></li>`).join('')}</ul></section>
       <section class="section"><h2>조리순서 · 음성 대사</h2><ol class="step-list">${recipe.steps.map((step,index)=>`<li class="step-card"><span class="step-num">${step.order}</span><div><p class="step-script">${escapeHtml(window.TodayCookSpeech.stepText(step,index))}</p></div></li>`).join('')}</ol></section>`;
     $('#speak-full').addEventListener('click', () => {
-      window.TodayCookSpeech.setRepeat(false);
+      window.TodayCookSpeech.cancel();
+      window.TodayCookSpeech.setRepeat(true, 10, null, 'full');
       window.TodayCookSpeech.speakRecipe(recipe);
     });
     $('#add-shopping').addEventListener('click', () => {
@@ -77,13 +78,20 @@
     const repeating = typeof detail.repeating === 'boolean'
       ? detail.repeating
       : window.TodayCookSpeech.repeating;
+    const repeatKind = detail.repeatKind || 'step';
+    const repeatCurrent = Number(detail.repeatCurrent ?? window.TodayCookSpeech.repeatCurrent ?? 0);
+    const repeatTarget = Number(detail.repeatTarget ?? window.TodayCookSpeech.repeatTarget ?? 10);
 
     onceButton.textContent = state === 'loading' && !repeating ? '⏳ 준비 중...' : '🔊 1회 듣기';
 
     if (repeatButton) {
-      repeatButton.textContent = repeating ? '■ 반복 중지' : '🔁 반복 듣기';
-      repeatButton.classList.toggle('active', repeating);
-      repeatButton.setAttribute('aria-pressed', repeating ? 'true' : 'false');
+      const stepRepeating = repeating && repeatKind === 'step';
+      const displayCount = Math.min(repeatTarget, repeatCurrent + (state === 'playing' ? 1 : 0));
+      repeatButton.textContent = stepRepeating
+        ? `■ ${Math.max(1, displayCount)}/${repeatTarget} 반복 중지`
+        : '🔁 10회 반복 듣기';
+      repeatButton.classList.toggle('active', stepRepeating);
+      repeatButton.setAttribute('aria-pressed', stepRepeating ? 'true' : 'false');
     }
 
     if (pauseButton) {
@@ -96,15 +104,30 @@
   function cookView(recipe) {
     const step = recipe.steps[cookStep];
     const stepScript = window.TodayCookSpeech.stepText(step, cookStep);
-    app.innerHTML = `<section class="cook-screen"><a class="back-link" href="#/recipe/${recipe.id}">← ${escapeHtml(recipe.name)}</a><p class="progress-label">${cookStep+1} / ${recipe.steps.length} 단계</p><div class="progress" aria-label="조리 진행률"><span style="width:${((cookStep+1)/recipe.steps.length)*100}%"></span></div><article class="cook-card"><p class="speech-caption-label">🔊 음성 대사</p><h1 class="speech-caption" id="speech-caption">${escapeHtml(stepScript)}</h1></article><div class="voice-panel"><div class="voice-mode-row"><button class="voice-primary" id="speak-step" type="button">🔊 1회 듣기</button><button class="voice-repeat" id="repeat-speech" type="button" aria-pressed="false">🔁 반복 듣기</button></div><div class="voice-secondary"><button id="pause-speech" type="button" disabled>⏸ 일시정지</button><button id="replay-speech" type="button">↻ 다시 듣기</button><button id="speak-recipe" type="button">🔊 전체 레시피</button></div></div><div class="cook-controls"><button id="prev" ${cookStep===0?'disabled':''}>← 이전</button><button id="next">${cookStep===recipe.steps.length-1?'완료':'다음 →'}</button></div></section>`;
+    app.innerHTML = `<section class="cook-screen"><a class="back-link" href="#/recipe/${recipe.id}">← ${escapeHtml(recipe.name)}</a><p class="progress-label">${cookStep+1} / ${recipe.steps.length} 단계</p><div class="progress" aria-label="조리 진행률"><span style="width:${((cookStep+1)/recipe.steps.length)*100}%"></span></div><article class="cook-card"><p class="speech-caption-label">🔊 음성 대사</p><h1 class="speech-caption" id="speech-caption">${escapeHtml(stepScript)}</h1></article><div class="voice-panel"><div class="voice-mode-row"><button class="voice-primary" id="speak-step" type="button">🔊 1회 듣기</button><button class="voice-repeat" id="repeat-speech" type="button" aria-pressed="false">🔁 10회 반복 듣기</button></div><div class="voice-secondary"><button id="pause-speech" type="button" disabled>⏸ 일시정지</button><button id="replay-speech" type="button">↻ 다시 듣기</button><button id="speak-recipe" type="button">🔁 전체 10회 듣기</button></div></div><div class="cook-controls"><button id="prev" ${cookStep===0?'disabled':''}>← 이전</button><button id="next">${cookStep===recipe.steps.length-1?'완료':'다음 →'}</button></div></section>`;
 
     const setCaption = text => {
       const node = $('#speech-caption');
       if (node) node.textContent = text;
     };
+
     const playCurrentStep = () => {
       setCaption(window.TodayCookSpeech.stepText(step, cookStep));
       return window.TodayCookSpeech.speakStep(recipe, cookStep);
+    };
+
+    const advanceAfterRepeat = () => {
+      if (cookStep < recipe.steps.length - 1) {
+        cookStep += 1;
+        cookView(recipe);
+        setTimeout(() => {
+          window.TodayCookSpeech.setRepeat(true, 10, advanceAfterRepeat, 'step');
+          window.TodayCookSpeech.speakStep(recipe, cookStep);
+        }, 250);
+      } else {
+        toast('맛있는 요리가 완성됐어, 형아!');
+        location.hash = `#/recipe/${recipe.id}`;
+      }
     };
 
     $('#prev').addEventListener('click', () => {
@@ -117,7 +140,7 @@
       window.TodayCookSpeech.setRepeat(false);
       window.TodayCookSpeech.cancel();
       if (cookStep < recipe.steps.length - 1) { cookStep++; cookView(recipe); }
-      else { toast('맛있는 요리가 완성됐어요!'); location.hash = `#/recipe/${recipe.id}`; }
+      else { toast('맛있는 요리가 완성됐어, 형아!'); location.hash = `#/recipe/${recipe.id}`; }
     });
 
     $('#speak-step').addEventListener('click', () => {
@@ -134,7 +157,7 @@
         return;
       }
       window.TodayCookSpeech.cancel();
-      window.TodayCookSpeech.setRepeat(true);
+      window.TodayCookSpeech.setRepeat(true, 10, advanceAfterRepeat, 'step');
       playCurrentStep();
     });
 
@@ -151,8 +174,8 @@
 
     $('#speak-recipe').addEventListener('click', () => {
       const fullScript = window.TodayCookSpeech.recipeText(recipe);
-      window.TodayCookSpeech.setRepeat(false);
       window.TodayCookSpeech.cancel();
+      window.TodayCookSpeech.setRepeat(true, 10, null, 'full');
       setCaption(fullScript);
       window.TodayCookSpeech.speakRecipe(recipe);
     });
@@ -160,7 +183,10 @@
     syncSpeechControls({
       state: window.TodayCookSpeech.state,
       hasReplay: false,
-      repeating: window.TodayCookSpeech.repeating
+      repeating: window.TodayCookSpeech.repeating,
+      repeatKind: 'step',
+      repeatCurrent: 0,
+      repeatTarget: 10
     });
   }
 
