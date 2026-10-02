@@ -68,7 +68,8 @@
     const pauseButton = $('#pause-speech');
     const replayButton = $('#replay-speech');
 
-    if (state === 'playing') mainButton.textContent = '■ 음성 중지';
+    if (state === 'loading') mainButton.textContent = '⏳ 음성 준비 중...';
+    else if (state === 'playing') mainButton.textContent = '■ 음성 중지';
     else if (state === 'paused') mainButton.textContent = '▶ 계속 듣기';
     else mainButton.textContent = '🔊 현재 단계 듣기';
 
