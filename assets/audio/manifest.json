@@ -1,0 +1,257 @@
+{
+  "version": 1,
+  "recipes": {
+    "kimchi-jjigae": {
+      "steps": [
+        "assets/audio/kimchi-jjigae/step-1.mp3",
+        "assets/audio/kimchi-jjigae/step-2.mp3",
+        "assets/audio/kimchi-jjigae/step-3.mp3",
+        "assets/audio/kimchi-jjigae/step-4.mp3",
+        "assets/audio/kimchi-jjigae/step-5.mp3"
+      ],
+      "full": "assets/audio/kimchi-jjigae/full.mp3"
+    },
+    "doenjang-jjigae": {
+      "steps": [
+        "assets/audio/doenjang-jjigae/step-1.mp3",
+        "assets/audio/doenjang-jjigae/step-2.mp3",
+        "assets/audio/doenjang-jjigae/step-3.mp3",
+        "assets/audio/doenjang-jjigae/step-4.mp3",
+        "assets/audio/doenjang-jjigae/step-5.mp3"
+      ],
+      "full": "assets/audio/doenjang-jjigae/full.mp3"
+    },
+    "sundubu-jjigae": {
+      "steps": [
+        "assets/audio/sundubu-jjigae/step-1.mp3",
+        "assets/audio/sundubu-jjigae/step-2.mp3",
+        "assets/audio/sundubu-jjigae/step-3.mp3",
+        "assets/audio/sundubu-jjigae/step-4.mp3",
+        "assets/audio/sundubu-jjigae/step-5.mp3"
+      ],
+      "full": "assets/audio/sundubu-jjigae/full.mp3"
+    },
+    "budae-jjigae": {
+      "steps": [
+        "assets/audio/budae-jjigae/step-1.mp3",
+        "assets/audio/budae-jjigae/step-2.mp3",
+        "assets/audio/budae-jjigae/step-3.mp3",
+        "assets/audio/budae-jjigae/step-4.mp3"
+      ],
+      "full": "assets/audio/budae-jjigae/full.mp3"
+    },
+    "miyeok-guk": {
+      "steps": [
+        "assets/audio/miyeok-guk/step-1.mp3",
+        "assets/audio/miyeok-guk/step-2.mp3",
+        "assets/audio/miyeok-guk/step-3.mp3",
+        "assets/audio/miyeok-guk/step-4.mp3",
+        "assets/audio/miyeok-guk/step-5.mp3"
+      ],
+      "full": "assets/audio/miyeok-guk/full.mp3"
+    },
+    "kongnamul-guk": {
+      "steps": [
+        "assets/audio/kongnamul-guk/step-1.mp3",
+        "assets/audio/kongnamul-guk/step-2.mp3",
+        "assets/audio/kongnamul-guk/step-3.mp3",
+        "assets/audio/kongnamul-guk/step-4.mp3"
+      ],
+      "full": "assets/audio/kongnamul-guk/full.mp3"
+    },
+    "gyeran-guk": {
+      "steps": [
+        "assets/audio/gyeran-guk/step-1.mp3",
+        "assets/audio/gyeran-guk/step-2.mp3",
+        "assets/audio/gyeran-guk/step-3.mp3",
+        "assets/audio/gyeran-guk/step-4.mp3"
+      ],
+      "full": "assets/audio/gyeran-guk/full.mp3"
+    },
+    "jeyuk-bokkeum": {
+      "steps": [
+        "assets/audio/jeyuk-bokkeum/step-1.mp3",
+        "assets/audio/jeyuk-bokkeum/step-2.mp3",
+        "assets/audio/jeyuk-bokkeum/step-3.mp3",
+        "assets/audio/jeyuk-bokkeum/step-4.mp3",
+        "assets/audio/jeyuk-bokkeum/step-5.mp3"
+      ],
+      "full": "assets/audio/jeyuk-bokkeum/full.mp3"
+    },
+    "pork-bulgogi": {
+      "steps": [
+        "assets/audio/pork-bulgogi/step-1.mp3",
+        "assets/audio/pork-bulgogi/step-2.mp3",
+        "assets/audio/pork-bulgogi/step-3.mp3",
+        "assets/audio/pork-bulgogi/step-4.mp3",
+        "assets/audio/pork-bulgogi/step-5.mp3"
+      ],
+      "full": "assets/audio/pork-bulgogi/full.mp3"
+    },
+    "beef-bulgogi": {
+      "steps": [
+        "assets/audio/beef-bulgogi/step-1.mp3",
+        "assets/audio/beef-bulgogi/step-2.mp3",
+        "assets/audio/beef-bulgogi/step-3.mp3",
+        "assets/audio/beef-bulgogi/step-4.mp3",
+        "assets/audio/beef-bulgogi/step-5.mp3"
+      ],
+      "full": "assets/audio/beef-bulgogi/full.mp3"
+    },
+    "dak-bokkeumtang": {
+      "steps": [
+        "assets/audio/dak-bokkeumtang/step-1.mp3",
+        "assets/audio/dak-bokkeumtang/step-2.mp3",
+        "assets/audio/dak-bokkeumtang/step-3.mp3",
+        "assets/audio/dak-bokkeumtang/step-4.mp3",
+        "assets/audio/dak-bokkeumtang/step-5.mp3",
+        "assets/audio/dak-bokkeumtang/step-6.mp3"
+      ],
+      "full": "assets/audio/dak-bokkeumtang/full.mp3"
+    },
+    "soy-braised-chicken": {
+      "steps": [
+        "assets/audio/soy-braised-chicken/step-1.mp3",
+        "assets/audio/soy-braised-chicken/step-2.mp3",
+        "assets/audio/soy-braised-chicken/step-3.mp3",
+        "assets/audio/soy-braised-chicken/step-4.mp3",
+        "assets/audio/soy-braised-chicken/step-5.mp3"
+      ],
+      "full": "assets/audio/soy-braised-chicken/full.mp3"
+    },
+    "kimchi-bokkeumbap": {
+      "steps": [
+        "assets/audio/kimchi-bokkeumbap/step-1.mp3",
+        "assets/audio/kimchi-bokkeumbap/step-2.mp3",
+        "assets/audio/kimchi-bokkeumbap/step-3.mp3",
+        "assets/audio/kimchi-bokkeumbap/step-4.mp3",
+        "assets/audio/kimchi-bokkeumbap/step-5.mp3"
+      ],
+      "full": "assets/audio/kimchi-bokkeumbap/full.mp3"
+    },
+    "egg-fried-rice": {
+      "steps": [
+        "assets/audio/egg-fried-rice/step-1.mp3",
+        "assets/audio/egg-fried-rice/step-2.mp3",
+        "assets/audio/egg-fried-rice/step-3.mp3",
+        "assets/audio/egg-fried-rice/step-4.mp3",
+        "assets/audio/egg-fried-rice/step-5.mp3"
+      ],
+      "full": "assets/audio/egg-fried-rice/full.mp3"
+    },
+    "bibimbap": {
+      "steps": [
+        "assets/audio/bibimbap/step-1.mp3",
+        "assets/audio/bibimbap/step-2.mp3",
+        "assets/audio/bibimbap/step-3.mp3",
+        "assets/audio/bibimbap/step-4.mp3",
+        "assets/audio/bibimbap/step-5.mp3"
+      ],
+      "full": "assets/audio/bibimbap/full.mp3"
+    },
+    "janchi-guksu": {
+      "steps": [
+        "assets/audio/janchi-guksu/step-1.mp3",
+        "assets/audio/janchi-guksu/step-2.mp3",
+        "assets/audio/janchi-guksu/step-3.mp3",
+        "assets/audio/janchi-guksu/step-4.mp3",
+        "assets/audio/janchi-guksu/step-5.mp3"
+      ],
+      "full": "assets/audio/janchi-guksu/full.mp3"
+    },
+    "bibim-guksu": {
+      "steps": [
+        "assets/audio/bibim-guksu/step-1.mp3",
+        "assets/audio/bibim-guksu/step-2.mp3",
+        "assets/audio/bibim-guksu/step-3.mp3",
+        "assets/audio/bibim-guksu/step-4.mp3",
+        "assets/audio/bibim-guksu/step-5.mp3"
+      ],
+      "full": "assets/audio/bibim-guksu/full.mp3"
+    },
+    "gyeran-mari": {
+      "steps": [
+        "assets/audio/gyeran-mari/step-1.mp3",
+        "assets/audio/gyeran-mari/step-2.mp3",
+        "assets/audio/gyeran-mari/step-3.mp3",
+        "assets/audio/gyeran-mari/step-4.mp3",
+        "assets/audio/gyeran-mari/step-5.mp3"
+      ],
+      "full": "assets/audio/gyeran-mari/full.mp3"
+    },
+    "dubu-jorim": {
+      "steps": [
+        "assets/audio/dubu-jorim/step-1.mp3",
+        "assets/audio/dubu-jorim/step-2.mp3",
+        "assets/audio/dubu-jorim/step-3.mp3",
+        "assets/audio/dubu-jorim/step-4.mp3"
+      ],
+      "full": "assets/audio/dubu-jorim/full.mp3"
+    },
+    "gamja-jorim": {
+      "steps": [
+        "assets/audio/gamja-jorim/step-1.mp3",
+        "assets/audio/gamja-jorim/step-2.mp3",
+        "assets/audio/gamja-jorim/step-3.mp3",
+        "assets/audio/gamja-jorim/step-4.mp3",
+        "assets/audio/gamja-jorim/step-5.mp3"
+      ],
+      "full": "assets/audio/gamja-jorim/full.mp3"
+    },
+    "eomuk-bokkeum": {
+      "steps": [
+        "assets/audio/eomuk-bokkeum/step-1.mp3",
+        "assets/audio/eomuk-bokkeum/step-2.mp3",
+        "assets/audio/eomuk-bokkeum/step-3.mp3",
+        "assets/audio/eomuk-bokkeum/step-4.mp3"
+      ],
+      "full": "assets/audio/eomuk-bokkeum/full.mp3"
+    },
+    "myeolchi-bokkeum": {
+      "steps": [
+        "assets/audio/myeolchi-bokkeum/step-1.mp3",
+        "assets/audio/myeolchi-bokkeum/step-2.mp3",
+        "assets/audio/myeolchi-bokkeum/step-3.mp3",
+        "assets/audio/myeolchi-bokkeum/step-4.mp3"
+      ],
+      "full": "assets/audio/myeolchi-bokkeum/full.mp3"
+    },
+    "kongnamul-muchim": {
+      "steps": [
+        "assets/audio/kongnamul-muchim/step-1.mp3",
+        "assets/audio/kongnamul-muchim/step-2.mp3",
+        "assets/audio/kongnamul-muchim/step-3.mp3",
+        "assets/audio/kongnamul-muchim/step-4.mp3"
+      ],
+      "full": "assets/audio/kongnamul-muchim/full.mp3"
+    },
+    "zucchini-bokkeum": {
+      "steps": [
+        "assets/audio/zucchini-bokkeum/step-1.mp3",
+        "assets/audio/zucchini-bokkeum/step-2.mp3",
+        "assets/audio/zucchini-bokkeum/step-3.mp3",
+        "assets/audio/zucchini-bokkeum/step-4.mp3",
+        "assets/audio/zucchini-bokkeum/step-5.mp3"
+      ],
+      "full": "assets/audio/zucchini-bokkeum/full.mp3"
+    },
+    "gamja-bokkeum": {
+      "steps": [
+        "assets/audio/gamja-bokkeum/step-1.mp3",
+        "assets/audio/gamja-bokkeum/step-2.mp3",
+        "assets/audio/gamja-bokkeum/step-3.mp3",
+        "assets/audio/gamja-bokkeum/step-4.mp3"
+      ],
+      "full": "assets/audio/gamja-bokkeum/full.mp3"
+    },
+    "tuna-mayo-rice": {
+      "steps": [
+        "assets/audio/tuna-mayo-rice/step-1.mp3",
+        "assets/audio/tuna-mayo-rice/step-2.mp3",
+        "assets/audio/tuna-mayo-rice/step-3.mp3",
+        "assets/audio/tuna-mayo-rice/step-4.mp3"
+      ],
+      "full": "assets/audio/tuna-mayo-rice/full.mp3"
+    }
+  }
+}
