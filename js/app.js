@@ -57,7 +57,7 @@
     app.innerHTML = `<a class="back-link" href="#/recipes">← 요리 목록</a><div class="detail-image">${image(recipe)}</div><section class="detail-header"><h1>${escapeHtml(recipe.name)}</h1><p class="muted">${escapeHtml(recipe.description)}</p>${meta(recipe)}<div class="actions detail-actions"><button class="button secondary" id="speak-full">🔊 전체 듣기</button><button class="button secondary" id="add-shopping">🛒 장보기 추가</button><a class="button green" href="#/cook/${recipe.id}">▶ 요리 시작</a></div></section>
       <section class="section"><h2>재료</h2><ul class="ingredient-list">${recipe.ingredients.map((item,i)=>`<li class="check-row"><input type="checkbox" id="ingredient-${i}"><label for="ingredient-${i}">${escapeHtml(item.name)}${item.optional?' <small>(선택)</small>':''}</label><span class="amount">${escapeHtml(item.amount)}</span></li>`).join('')}</ul></section>
       <section class="section"><h2>조리순서</h2><ol class="step-list">${recipe.steps.map(step=>`<li class="step-card"><span class="step-num">${step.order}</span><div><p>${escapeHtml(step.text)}</p>${step.tip?`<p class="tip">💡 ${escapeHtml(step.tip)}</p>`:''}</div></li>`).join('')}</ol></section>`;
-    $('#speak-full').addEventListener('click', () => { window.TodayCookSpeech.setRepeat(false); window.TodayCookSpeech.speakRecipe(recipe)); }
+    $('#speak-full').addEventListener('click', () => { window.TodayCookSpeech.setRepeat(false); window.TodayCookSpeech.speakRecipe(recipe); });
     $('#add-shopping').addEventListener('click', () => { const count = window.TodayCookShopping.addRecipe(recipe); toast(count ? `${count}개 재료를 장보기에 담았어요.` : '이미 장보기 목록에 있어요.'); });
   }
 
