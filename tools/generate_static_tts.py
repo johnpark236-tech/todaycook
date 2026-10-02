@@ -102,7 +102,7 @@ def synth_to_mp3(tts, text, target):
     subprocess.run([
         "ffmpeg", "-y", "-loglevel", "error",
         "-i", str(wav_path),
-        "-af", "asetrate=22050*1.03,aresample=22050,atempo=0.970874",
+        "-af", "asetrate=22050*1.12,aresample=22050,atempo=0.892857",
         "-codec:a", "libmp3lame", "-b:a", "64k",
         str(target)
     ], check=True)
@@ -114,7 +114,7 @@ def main():
     OUT.mkdir(parents=True, exist_ok=True)
     tts = ensure_model()
 
-    manifest = {"version": 3, "voice": "younger-brother", "recipes": {}}
+    manifest = {"version": 4, "voice": "bright-female", "recipes": {}}
     for recipe in recipes:
         rid = recipe["id"]
         rdir = OUT / rid
@@ -133,7 +133,7 @@ def main():
         json.dumps(manifest, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8"
     )
-    print(f"Generated younger-brother fallback TTS for {len(recipes)} recipes.")
+    print(f"Generated bright-female fallback TTS for {len(recipes)} recipes.")
 
 if __name__ == "__main__":
     main()
