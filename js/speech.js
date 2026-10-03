@@ -18,6 +18,7 @@
   let repeatCurrent = 0;
   let repeatKind = 'step';
   let repeatCompleteHandler = null;
+  let segmentToken = 0;
 
   function dispatch(extra = {}) {
     document.dispatchEvent(new CustomEvent('todaycook:speech', {
@@ -413,6 +414,60 @@
     );
   }
 
+  function speakSegments(segments = [], options = {}) {
+    if (!nativeSupported() || !config.SPEECH_ENABLED) {
+      window.TC.toast('이 브라우저에서는 음성 읽기를 지원하지 않아요.');
+      return false;
+    }
+    const queue = segments.map((segment, index) => typeof segment === 'string'
+      ? { text: segment, index }
+      : { text: segment.text, index: segment.index ?? index }).filter(segment => segment.text);
+    if (!queue.length) return false;
+
+    setRepeat(false);
+    cancel({ keepLast: true });
+    const token = ++segmentToken;
+    let cursor = 0;
+
+    const playNext = () => {
+      if (token !== segmentToken) return;
+      const segment = queue[cursor];
+      if (!segment) {
+        setState('idle');
+        dispatch({ segmentIndex: null, finished: true });
+        return;
+      }
+
+      nativeMode = true;
+      nativeUtterance = new SpeechSynthesisUtterance(normalize(segment.text));
+      nativeUtterance.lang = 'ko-KR';
+      nativeUtterance.rate = options.rate || Number(config.TTS_RATE || 1);
+      nativeUtterance.pitch = options.pitch || 0.92;
+      nativeUtterance.volume = 1;
+      const voice = pickKoreanVoice();
+      if (voice) nativeUtterance.voice = voice;
+      nativeUtterance.onstart = () => {
+        if (token !== segmentToken) return;
+        state = 'playing';
+        dispatch({ segmentIndex: segment.index });
+      };
+      nativeUtterance.onend = () => {
+        cursor += 1;
+        playNext();
+      };
+      nativeUtterance.onerror = () => {
+        nativeUtterance = null;
+        nativeMode = false;
+        setState('idle');
+        dispatch({ segmentIndex: null });
+      };
+      window.speechSynthesis.speak(nativeUtterance);
+    };
+
+    playNext();
+    return true;
+  }
+
   function setRepeat(enabled, count = REPEAT_LIMIT, onComplete = null, kind = 'step') {
     repeatMode = Boolean(enabled);
     repeatTarget = repeatMode ? Math.max(1, Math.min(REPEAT_LIMIT, Number(count) || REPEAT_LIMIT)) : 1;
@@ -469,6 +524,7 @@
   }
 
   function cancel({ keepLast = true, keepRepeat = false } = {}) {
+    segmentToken += 1;
     playToken += 1;
     if (nativeSupported()) window.speechSynthesis.cancel();
     nativeUtterance = null;
@@ -494,16 +550,17 @@
   }
 
   function stepText(step, index) {
-    const parts = [`형아, ${ordinal(index)} 단계야.`, casualize(step.text)];
-    if (step.tip) parts.push(casualize(step.tip));
+    if (step.speechText) return normalize(step.speechText);
+    const parts = [`${ordinal(index)} 단계입니다.`, normalize(step.text)];
+    if (step.tip) parts.push(normalize(step.tip));
     return parts.filter(Boolean).join(' ');
   }
 
   function recipeText(recipe) {
     const ingredients = recipe.ingredients.map(item => `${item.name} ${item.amount}`).join(', ');
     const steps = recipe.steps.map((step, index) => stepText(step, index)).join(' ');
-    const description = recipe.description ? casualize(recipe.description) : '';
-    return `형아, 오늘은 ${recipe.name} 같이 만들어보자. ${description} 필요한 재료는 ${ingredients} 정도야. ${steps} 다 했으면 맛있게 먹자, 형아.`;
+    const description = recipe.description ? normalize(recipe.description) : '';
+    return `오늘은 ${recipe.name}을 만들어볼게요. ${description} 필요한 재료는 ${ingredients}입니다. ${steps} 다 만들었습니다. 따뜻할 때 맛있게 드세요.`;
   }
 
   window.addEventListener('hashchange', () => {
@@ -520,6 +577,7 @@
     speak,
     speakStep,
     speakRecipe,
+    speakSegments,
     pause,
     resume,
     replay,
