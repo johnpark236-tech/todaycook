@@ -1,7 +1,7 @@
 (function () {
   const config = window.TODAYCOOK_CONFIG;
   const MEMORY_CACHE_MAX = 24;
-  const CACHE_NAME = 'todaycook-google-tts-v3';
+  const CACHE_NAME = 'todaycook-google-tts-v4-mid-low-female';
   const REPEAT_LIMIT = 10;
   const ORDINALS = ['첫번째','두번째','세번째','네번째','다섯번째','여섯번째','일곱번째','여덟번째','아홉번째','열번째','열한번째','열두번째'];
 
@@ -109,9 +109,9 @@
 
   async function hashText(text) {
     const raw = [
-      config.TTS_VOICE || 'ko-KR-Neural2-A',
-      Number(config.TTS_RATE || 1.03).toFixed(2),
-      Number(config.TTS_PITCH ?? 4.0).toFixed(1),
+      config.TTS_VOICE || 'ko-KR-Neural2-B',
+      Number(config.TTS_RATE || 0.98).toFixed(2),
+      Number(config.TTS_PITCH ?? -2.0).toFixed(1),
       text
     ].join('|');
 
@@ -224,9 +224,9 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           text: normalized,
-          voice: config.TTS_VOICE || 'ko-KR-Neural2-A',
-          rate: Number(config.TTS_RATE || 1.03),
-          pitch: Number(config.TTS_PITCH ?? 4.0)
+          voice: config.TTS_VOICE || 'ko-KR-Neural2-B',
+          rate: Number(config.TTS_RATE || 0.98),
+          pitch: Number(config.TTS_PITCH ?? -2.0)
         }),
         signal: controller.signal,
         cache: 'no-store'
@@ -311,8 +311,8 @@
       nativeMode = true;
       nativeUtterance = new SpeechSynthesisUtterance(text);
       nativeUtterance.lang = 'ko-KR';
-      nativeUtterance.rate = 1.03;
-      nativeUtterance.pitch = 1.35;
+      nativeUtterance.rate = 0.98;
+      nativeUtterance.pitch = 0.95;
       nativeUtterance.volume = 1;
       const voice = pickKoreanVoice();
       if (voice) nativeUtterance.voice = voice;
